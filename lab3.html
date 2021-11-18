@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Registration Form</title>
+    <style type="text/css">
+        .commonHeader{
+            font-family: calibri;
+            font-size: x-large;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px;
+        }
+        .commonLabel{
+            font-family: calibri;
+            font-size: medium;
+            text-align: right;
+            margin: 5px;
+            padding: 5px;
+        }
+        .commonInput{
+            font-family: calibri;
+            font-size: medium;
+            border-radius: 5px;
+            border: 2px solid lightblue;
+            text-align: left;
+            margin: 5px;
+            padding: 5px;
+        }
+        .headerCell{
+            font-family: calibri;
+            font-size: large;
+            color: #8f3925;
+            border-radius: 5px;
+            border: 2px solid #934422;
+            text-align: center;
+            background: #efbada;
+            padding: 5px;
+        }
+        .commonCell{
+            font-family: calibri;
+            font-size: medium;
+            color: #122354;
+            border: 2px solid #934422;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px;
+        }
+        .error{
+            font-family: calibri;
+            font-size: small;
+            color: #ee2354;
+            text-align: left;
+            font-style: italic;
+            width: 150px;
+            padding: 5px;
+        }
+        .box{
+            box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            margin: 20px, 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .buttons{
+            font-family: calibri;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 8px 12px 8px 12px;
+            margin-left: 10px;
+            margin-top: 10px;
+            box-shadow: 3px 3px 10px 2px #CECEDE;
+            border: none;
+        }
+        .buttons:hover{
+            border-radius: 5px;
+            padding: 10px 14px 10px 14px;
+            background: linear-gradient(180deg, #667799, #7799CC);
+            box-shadow: 3px 3px 10px 2px #CCCCDD;
+            border: 1px solid royalblue;
+            cursor: pointer;
+        }
+        .button:focus{
+            background: linear-gradient(180deg, #DCDCEE, #FEFEFF);
+            color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <form id="frmCourseReg" name="frmCourseReg">
+          <table class="box">
+            <tr>
+              <td colspan="3" class="commonHeader">
+                <h3>
+                  Project Registration Form
+                </h3>
+              </td>
+            </tr>
+            <tr>
+              <td class="commonLabel">PROJECT_ID:</td>
+              <td colspan="2"><input readonly id="txtTourID" name="txtTourID" type="text" maxlength="3" class="commonInput" /></td>
+            </tr>
+            <tr>
+              <td class="commonLabel">PROJECT_NAME:</td>
+              <td>
+                <input class="commonInput" id="txtTourName" name="txtTourName" onblur="checkName(this)" type="text" maxlength="50"
+                  placeholder="" />
+              </td>
+              <td>
+                <div id="divTourName"></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="commonLabel">TECHNOLOGY_DOMAIN:</td>
+              <td>
+                <input class="commonInput" id="txtDestName" name="txtDestName" onblur="checkDest(this)" type="text" maxlength="250"
+                  placeholder="" />
+              </td>
+              <td>
+                <div id="divDestName"></div>
+              </td>
+            </tr>
+            <tr>
+                <td class="commonLabel">DESCRIPTION:</td>
+                <td>
+                  <input class="commonInput" id="txtDestName" name="txtDestName" onblur="checkDest(this)" type="text" maxlength="250"
+                    placeholder="" />
+                </td>
+                <td>
+                  <div id="divDestName"></div>
+                </td>
+            </tr>
+            <tr>
+              <td class="commonLabel">START_DATE: </td>
+              <td>
+                <input class="commonInput" type="date" name="startDate" id="startDate" onblur="checkStartDate(),activateEndDate()">
+              </td>
+              <td>
+                <div id="divStartDate"></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="commonLabel">SCHEDULED_END_DATE: </td>
+              <td>
+                <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate()" class="commonInput">
+              </td>
+              <td>
+                <div id="divEndDate"></div>
+              </td>
+            </tr>
+            <tr>
+                <td class="commonLabel">PROJECT_LEAD:</td>
+                <td colspan="2"><input readonly id="txtTourID" name="txtTourID" type="text" maxlength="3" class="commonInput" /></td>
+            </tr>
+            <tr>
+                <td class="commonLabel">LEAD_START_DATE: </td>
+                <td>
+                  <input class="commonInput" type="date" name="startDate" id="startDate" onblur="checkStartDate(),activateEndDate()">
+                </td>
+                <td>
+                  <div id="divStartDate"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="commonLabel">LEAD_END_DATE: </td>
+                <td>
+                  <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate()" class="commonInput">
+                </td>
+                <td>
+                  <div id="divEndDate"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" align="center" valign="center">
+                    <button class="buttons">Add</button>
+                    <button type="reset" class="buttons">Cancel</button>
+                </td>
+            </tr>
+          </table>
+        </form>
+      </center>
+      <table>
+        <div id="divShowCourses"></div>
+      </table>
+</body>
+</html>
