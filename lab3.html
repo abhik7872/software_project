@@ -49,13 +49,7 @@
             padding: 10px;
         }
         .error{
-            font-family: calibri;
-            font-size: small;
-            color: #ee2354;
-            text-align: left;
-            font-style: italic;
-            width: 150px;
-            padding: 5px;
+            background-color: #EEDDDD;
         }
         .box{
             box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
@@ -89,9 +83,9 @@
         }
     </style>
 </head>
-<body>
+<body onload="getID()">
     <center>
-        <form id="frmCourseReg" name="frmCourseReg">
+        <form id="frmProjReg" name="frmProjReg">
           <table class="box">
             <tr>
               <td colspan="3" class="commonHeader">
@@ -102,36 +96,42 @@
             </tr>
             <tr>
               <td class="commonLabel">PROJECT_ID:</td>
-              <td colspan="2"><input readonly id="txtTourID" name="txtTourID" type="text" maxlength="3" class="commonInput" /></td>
+              <td colspan="2"><input readonly id="txtProjectID" name="txtProjectID" type="text" maxlength="6" class="commonInput" /></td>
             </tr>
             <tr>
               <td class="commonLabel">PROJECT_NAME:</td>
               <td>
-                <input class="commonInput" id="txtTourName" name="txtTourName" onblur="checkName(this)" type="text" maxlength="50"
-                  placeholder="" />
+                <input class="commonInput" id="txtProjectName" name="txtProjectName" onblur="checkName(this)" type="text" maxlength="50" placeholder="" />
               </td>
               <td>
-                <div id="divTourName"></div>
+                <div id="divProjectName"></div>
               </td>
             </tr>
             <tr>
               <td class="commonLabel">TECHNOLOGY_DOMAIN:</td>
               <td>
-                <input class="commonInput" id="txtDestName" name="txtDestName" onblur="checkDest(this)" type="text" maxlength="250"
-                  placeholder="" />
+                <input class="commonInput" id="txtTechDomain" name="txtTechDomain" onblur="checkDomain(this)" type="text" maxlength="50" placeholder="" />
               </td>
               <td>
-                <div id="divDestName"></div>
+                <div id="divTechDomain"></div>
               </td>
             </tr>
             <tr>
                 <td class="commonLabel">DESCRIPTION:</td>
                 <td>
-                  <input class="commonInput" id="txtDestName" name="txtDestName" onblur="checkDest(this)" type="text" maxlength="250"
-                    placeholder="" />
+                  <input class="commonInput" id="txtDescription" name="txtDescription" onblur="checkDescription(this)" type="text" maxlength="250" placeholder="" />
                 </td>
                 <td>
-                  <div id="divDestName"></div>
+                  <div id="divDescription"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="commonLabel">CLIENT:</td>
+                <td>
+                  <input class="commonInput" id="txtClient" name="txtClient" onblur="checkClient(this)" type="text" maxlength="50" placeholder="" />
+                </td>
+                <td>
+                  <div id="divClient"></div>
                 </td>
             </tr>
             <tr>
@@ -154,24 +154,24 @@
             </tr>
             <tr>
                 <td class="commonLabel">PROJECT_LEAD:</td>
-                <td colspan="2"><input readonly id="txtTourID" name="txtTourID" type="text" maxlength="3" class="commonInput" /></td>
+                <td colspan="2"><input readonly id="txtProjLead" name="txtProjLead" type="text" maxlength="9" class="commonInput" /></td>
             </tr>
             <tr>
                 <td class="commonLabel">LEAD_START_DATE: </td>
                 <td>
-                  <input class="commonInput" type="date" name="startDate" id="startDate" onblur="checkStartDate(),activateEndDate()">
+                  <input readonly class="commonInput" type="date" name="leadStartDate" id="leadStartDate" onblur="checkLeadStartDate(),activateLeadEndDate()">
                 </td>
                 <td>
-                  <div id="divStartDate"></div>
+                  <div id="divLeadStartDate"></div>
                 </td>
               </tr>
               <tr>
                 <td class="commonLabel">LEAD_END_DATE: </td>
                 <td>
-                  <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate()" class="commonInput">
+                  <input disabled type="date" name="leadEndDate" id="leadEndDate" onblur="checkLeadEndDate()" class="commonInput">
                 </td>
                 <td>
-                  <div id="divEndDate"></div>
+                  <div id="divLeadEndDate"></div>
                 </td>
               </tr>
               <tr>
@@ -184,7 +184,185 @@
         </form>
       </center>
       <table>
-        <div id="divShowCourses"></div>
+        <div id="divShowProjects"></div>
       </table>
 </body>
+
 </html>
+
+<script language="JavaScript" type="text/javascript">
+    var count = 1;
+    var flagName = false;
+    var flagDomain = false;
+    var flagDescription = false;
+    var flagClient = false;
+    var flagStartDate = false;
+    var flagEndDate = false;
+    var flagProjLead = false;
+    var flagLeadStartDate = false;
+    var flagLeadEndDate = false;
+
+    function checkName(htmlObj) {
+        var strtname = htmlObj.value;
+        if (strtname == "") {
+            flagName = false;
+            document.getElementById("divProjectName").innerHTML = "Please Enter Tour Name.";
+        } else {
+            flagName = false;
+            var valid = /^[a-zA-Z ]+$/;
+            if (!strtourName.match(valid)) {
+                document.getElementById("divProjectName").innerHTML = "Invalid tour name. Only alphabets and space allowed.";
+                document.getElementById("txtProjectName").className = "error-text";
+                flagName = false;
+            } else {
+                flagName = true;
+                document.getElementById("divProjectName").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtProjectName").className = "commonInput";
+            }
+        }
+    }
+
+    function checkDomain(htmlObj) {
+        var strDomain = htmlObj.value;
+        if (strDomain == "") {
+        flagDomain = false;
+        document.getElementById("divTechDomain").innerHTML = "Please Enter Domain Name.";
+        } else {
+            flagDomain = false;
+            var valid = /^[a-zA-Z, ]+$/;
+            if (!strDomain.match(valid)) {
+                document.getElementById("divTechDomain").innerHTML = "Invalid Destination. Only alphabets, comma(',') and space allowed.";
+                document.getElementById("txtTechDomain").className = "error";
+                flagDomain = false;
+            } else {
+                flagDomain = true;
+                document.getElementById("divTechDomain").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtTechDomain").className = "commonInput";
+            }
+        }
+    }
+
+    function checkDescription(htmlObj) {
+        var strDescription = htmlObj.value;
+        if (strDescription == "") {
+        flagDescription = false;
+        document.getElementById("divDescription").innerHTML = "Please Enter Domain Name.";
+        } else {
+            flagDescription = false;
+            var valid = /^[a-zA-Z, ]+$/;
+            if (!strDescription.match(valid)) {
+                document.getElementById("divDescription").innerHTML = "Invalid Destination. Only alphabets, comma(',') and space allowed.";
+                document.getElementById("txtDescription").className = "error";
+                flagDescription = false;
+            } else {
+                flagDescription = true;
+                document.getElementById("divDescription").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtDescription").className = "commonInput";
+            }
+        }
+    }
+
+    function checkClient(htmlObj) {
+        var strClient = htmlObj.value;
+        if (strClient == "") {
+        flagClient = false;
+        document.getElementById("divClient").innerHTML = "Please Enter Domain Name.";
+        } else {
+            flagClient = false;
+            var valid = /^[a-zA-Z, ]+$/;
+            if (!strClient.match(valid)) {
+                document.getElementById("divClient").innerHTML = "Invalid Destination. Only alphabets, comma(',') and space allowed.";
+                document.getElementById("txtClient").className = "error";
+                flagClient = false;
+            } else {
+                flagClient = true;
+                document.getElementById("divClient").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtClient").className = "commonInput";
+            }
+        }
+    }
+
+    function checkStartDate() {
+        var strStDate = document.getElementById("startDate").value;
+        var stdate = new Date(strStDate).setHours(0, 0, 0, 0);
+        var today = new Date().setHours(0, 0, 0, 0);
+        console.log(strStDate);
+        if (strStDate == "") {
+            flagStartDate = false;
+            document.getElementById("divStartDate").innerHTML = "Please enter date";
+        } else {
+            flagStartDate = false;
+            if (stdate < today) {
+                document.getElementById("divStartDate").innerHTML = "Invalid Date";
+                document.getElementById("startDate").className = "error";
+                flagStartDate = false;
+            } else {
+                flagStartDate = true;
+                document.getElementById("divStartDate").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("startDate").className = "commonInput";
+            }
+        }
+    }
+
+    function activateEndDate() {
+        if (flagStartDate == true)
+            document.getElementById("endDate").disabled = false;
+    }
+
+    function checkEndDate() {
+        var strStDate = document.getElementById("startDate").value;
+        var stdate = new Date(strStDate);
+        var strEndDate = document.getElementById("endDate").value;
+        var endDate = new Date(strEndDate);
+        var minDate = new Date(stdate.getFullYear(), stdate.getMonth(), stdate.getDate() + 1);
+        var maxDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 90);
+        if (strEndDate == "") {
+            flagEndDate = false;
+            document.getElementById("divEndDate").innerHTML = "Please enter date";
+        } else {
+            flagEndDate = false;
+            if (!(minDate <= endDate && endDate <= maxDate)) {
+                document.getElementById("divEndDate").innerHTML = "Invalid Date";
+                document.getElementById("endDate").className = "error";
+                flagEndDate = false;
+            } else {
+                flagEndDate = true;
+                document.getElementById("divEndDate").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("endDate").className = "commonInput";
+            }
+        }
+    }
+
+    function getID() {
+        var pid = "PRJ" + count;
+        var numzeroes = 6 - pid.length;
+        pid = "PRJ";
+        for (var i = 0; i < numzeroes; i++) {
+            pid += "0";
+        }
+        pid += count;
+
+        var ld = "EMP" + count;
+        var numzeroes1 = 9 - ld.length;
+        ld = "EMP";
+        for (var i = 0; i < numzeroes1; i++) {
+            ld += "0";
+        }
+        ld += count;
+
+        document.getElementById("txtProjectID").value = pid;
+        document.getElementById("divProjectName").innerHTML = "";
+        document.getElementById("txtProjectName").className = "commonInput";
+        document.getElementById("divTechDomain").innerHTML = "";
+        document.getElementById("txtTechDomain").className = "commonInput";
+        document.getElementById("divDescription").innerHTML = "";
+        document.getElementById("txtDescription").className = "commonInput";
+        document.getElementById("divClient").innerHTML = "";
+        document.getElementById("txtClient").className = "commonInput";
+        document.getElementById("txtProjLead").value = ld;
+        document.getElementById("divStartDate").innerHTML = "";
+        document.getElementById("startDate").className = "commonInput";
+        document.getElementById("divEndDate").innerHTML = "";
+        document.getElementById("endDate").className = "commonInput";
+    }
+</script>
