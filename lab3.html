@@ -176,7 +176,7 @@
               </tr>
               <tr>
                 <td colspan="3" align="center" valign="center">
-                    <button class="buttons">Add</button>
+                    <button class="buttons" onclick="cheeckAllInput()">Add</button>
                     <button type="reset" class="buttons">Cancel</button>
                 </td>
             </tr>
@@ -206,12 +206,12 @@
         var strtname = htmlObj.value;
         if (strtname == "") {
             flagName = false;
-            document.getElementById("divProjectName").innerHTML = "Please Enter Tour Name.";
+            document.getElementById("divProjectName").innerHTML = "Please Enter project Name.";
         } else {
             flagName = false;
             var valid = /^[a-zA-Z ]+$/;
-            if (!strtourName.match(valid)) {
-                document.getElementById("divProjectName").innerHTML = "Invalid tour name. Only alphabets and space allowed.";
+            if (!strtname.match(valid)) {
+                document.getElementById("divProjectName").innerHTML = "Invalid project name. Only alphabets and space allowed.";
                 document.getElementById("txtProjectName").className = "error-text";
                 flagName = false;
             } else {
@@ -231,7 +231,7 @@
             flagDomain = false;
             var valid = /^[a-zA-Z, ]+$/;
             if (!strDomain.match(valid)) {
-                document.getElementById("divTechDomain").innerHTML = "Invalid Destination. Only alphabets, comma(',') and space allowed.";
+                document.getElementById("divTechDomain").innerHTML = "Invalid Domain Name. Only alphabets, comma(',') and space allowed.";
                 document.getElementById("txtTechDomain").className = "error";
                 flagDomain = false;
             } else {
@@ -300,8 +300,13 @@
                 flagStartDate = true;
                 document.getElementById("divStartDate").innerHTML = "<img src=tick.jpg>";
                 document.getElementById("startDate").className = "commonInput";
+                readonlystdate();
             }
         }
+    }
+
+    function readonlystdate() {
+      document.getElementById("leadStartDate").value = document.getElementById("startDate").value;
     }
 
     function activateEndDate() {
@@ -329,6 +334,33 @@
                 flagEndDate = true;
                 document.getElementById("divEndDate").innerHTML = "<img src=tick.jpg>";
                 document.getElementById("endDate").className = "commonInput";
+            }
+        }
+    }
+
+    function checkLeadEndDate() {
+        var strStDate1 = document.getElementById("leadStartDate").value;
+        var stdate1 = new Date(strStDate1);
+        var strEndDate1 = document.getElementById("leadEndDate").value;
+        var endDate1 = new Date(strEndDate1);
+        var minDate1 = new Date(stdate1.getFullYear(), stdate1.getMonth() +1, stdate1.getDate() );
+        var maxDate1 = new Date(document.getElementById("endDate").value);
+        maxDate1.setHours(0,0,0,0);
+        endDate1.setHours(0,0,0,0);
+        console.log(maxDate1+ " " + endDate1+ " " + minDate1);
+        if (strEndDate1 == "") {
+            flagLeadEndDate = false;
+            document.getElementById("divLeadEndDate").innerHTML = "Please enter date";
+        } else {
+            flagLeadEndDate = false;
+            if (!(minDate1 <= endDate1 && endDate1 <= maxDate1)) {
+                document.getElementById("divLeadEndDate").innerHTML = "Invalid Date";
+                document.getElementById("leadEndDate").className = "error-text";
+                flagLeadEndDate = false;
+            } else {
+                flagLeadEndDate = true;
+                document.getElementById("divLeadEndDate").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("leadEndDate").className = "commonInput";
             }
         }
     }
@@ -364,5 +396,109 @@
         document.getElementById("startDate").className = "commonInput";
         document.getElementById("divEndDate").innerHTML = "";
         document.getElementById("endDate").className = "commonInput";
+    }
+
+    var userRow = "";
+    function cheeckAllInput() 
+    {
+      if (document.getElementById("txtProjectID").value != "")
+      {
+        if (document.getElementById("txtProjectName").value != "" && flagName != false)
+        {
+          if (document.getElementById("txtTechDomain").value != "" && flagDomain != false)
+          {
+            if (document.getElementById("txtDescription").value != "" && flagDescription != false)
+            {
+              if (document.getElementById("txtClient").value != "" && flagClient != false)
+              {
+                if (document.getElementById("startDate").value != "" && flagStartDate != false)
+                {
+                  if (document.getElementById("endDate").value != "" && flagEndDate != false)
+                  {
+                    if (document.getElementById("txtProjLead").value != "")
+                    {
+                      if (document.getElementById("leadStartDate").value != "" && flagLeadStartDate != false)
+                      {
+                        if (document.getElementById("leadEndDate").value != "" && flagLeadEndDate != false)
+                        {
+                          var headerContent = "";
+                          headerContent = "<table border=0><tr>";
+                          headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Project ID</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Project Name</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Technology Domain</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Description</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Client</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Scheduled End Date</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Project Lead</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Lead Start Date</td>";
+                          headerContent += "<td align=center valign=center class=headerCell> Lead End Date</td>";
+                          headerContent += "</tr>";
+                          var pid = document.getElementById("txtProjectID").value;
+                          var projectName = document.getElementById("txtProjectName").value;
+                          var techDomain = document.getElementById("txtTechDomain").value;
+                          var description = document.getElementById("txtDescription").value;
+                          var startDate = document.getElementById("startDate").value;
+                          var endDate = document.getElementById("endDate").value;
+                          var projLead = document.getElementById("txtProjLead").value;
+                          var leadStartDate = document.getElementById("leadStartDate").value;
+                          var leadEndDate = document.getElementById("leadEndDate").value;
+
+                          userRow += "<tr>";
+                          userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + pid + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + projectName + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + techDomain + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + description + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + startDate + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + endDate + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + projLead + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + leadStartDate + "</td>";
+                          userRow += "<td align=center valign=center class=commonCell>" + leadEndDate + "</td>";
+                          userRow += "</tr>";
+                          var content = headerContent + userRow + "</table>";
+                          document.getElementById("divShowProjects").innerHTML = content;
+                          alert("Course succesfully added!");
+                          document.getElementById("frmProjReg").reset();
+                          count++;
+                          getId();
+                        }
+                        else {
+                          alert("Please enter lead end date");
+                        }
+                      }
+                      else {
+                        alert("Please select the lead start date.");
+                      }
+                    }
+                  }
+                  else {
+                    alert("Please enter end date.");
+                  }
+                }
+                else {
+                  alert("Please enter start date.");
+                }
+              }
+              else {
+                alert("Please enter client name.");
+              }
+            }
+            else {
+              alert("Please enter valid project description.");
+            }
+          }
+          else {
+            alert("Please enter valid domain name.")
+          }
+        }
+        else {
+          alert("Please enter valid project name.");
+        }
+      }
+      else {
+        alert("Please reload the page. Error on loading.");
+      }
     }
 </script>
