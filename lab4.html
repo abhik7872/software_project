@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Allocation Form</title>
+    <style type="text/css">
+        .commonHeader{
+            font-family: calibri;
+            font-size: x-large;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px;
+        }
+        .commonLabel{
+            font-family: calibri;
+            font-size: medium;
+            text-align: right;
+            margin: 5px;
+            padding: 5px;
+        }
+        .commonInput{
+            font-family: calibri;
+            font-size: medium;
+            border-radius: 5px;
+            border: 2px solid lightblue;
+            text-align: left;
+            margin: 5px;
+            padding: 5px;
+        }
+        .headerCell{
+            font-family: calibri;
+            font-size: large;
+            color: #8f3925;
+            border-radius: 5px;
+            border: 2px solid #934422;
+            text-align: center;
+            background: #efbada;
+            padding: 5px;
+        }
+        .commonCell{
+            font-family: calibri;
+            font-size: medium;
+            color: #122354;
+            border: 2px solid #934422;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px;
+        }
+        .error{
+            background-color: #EEDDDD;
+        }
+        .box{
+            box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            margin: 20px, 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .buttons{
+            font-family: calibri;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 8px 12px 8px 12px;
+            margin-left: 10px;
+            margin-top: 10px;
+            box-shadow: 3px 3px 10px 2px #CECEDE;
+            border: none;
+        }
+        .buttons:hover{
+            border-radius: 5px;
+            padding: 10px 14px 10px 14px;
+            background: linear-gradient(180deg, #667799, #7799CC);
+            box-shadow: 3px 3px 10px 2px #CCCCDD;
+            border: 1px solid royalblue;
+            cursor: pointer;
+        }
+        .button:focus{
+            background: linear-gradient(180deg, #DCDCEE, #FEFEFF);
+            color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <form id="frmMovReg" name="frmMovReg">
+            <table class="box">
+                <tr>
+                    <td colspan="3" class="commonHeader">
+                      <h3>
+                        Movie Allocation Form
+                      </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">MOVIE NAME:</td>
+                    <td colspan="2">
+                        <select id="optMovieName" name="optMovieName" class="commonInput" onblur="checkMovieName()">
+                            <option value="">Select Movie Name</option>
+                            <option value="MOVIE 1">MOVIE 1</option>
+                            <option value="MOVIE 2">MOVIE 2</option>
+                            <option value="MOVIE 3">MOVIE 3</option>
+                            <option value="MOVIE 4">MOVIE 4</option>
+                            <option value="MOVIE 5">MOVIE 5</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">THEATRE:</td>
+                    <td colspan="2">
+                        <select id="optTheatreName" name="optTheatreName" class="commonInput" onblur="checkTheatre(this),activateScreen(),activateShowtime()">
+                            <option value="">Select Theatre</option>
+                            <option value="THEATRE 1">THEATRE 1</option>
+                            <option value="THEATRE 2">THEATRE 2</option>
+                            <option value="THEATRE 3">THEATRE 3</option>
+                            <option value="THEATRE 4">THEATRE 4</option>
+                            <option value="THEATRE 5">THEATRE 5</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divTheatre"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">SCREEN:</td>
+                    <td colspan="2">
+                        <select disabled id="optScreen" name="optScreen" class="commonInput" onblur="checkScreen()">
+                            <option value="">Select Screen</option>
+                            <option value="SC001">SCREEN 1</option>
+                            <option value="SC026">SCREEN 2</option>
+                            <option value="SC003">SCREEN 3</option>
+                            <option value="SC044">SCREEN 4</option>
+                            <option value="SC005">SCREEN 5</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">SHOWTIME:</td>
+                    <td colspan="2">
+                        <select disabled id="optShowtime" name="optShowtime" class="commonInput" onblur="checkShowtime()">
+                            <option value="">Select Showtime</option>
+                            <option value="11am-1pm">11am-1pm</option>
+                            <option value="3pm-5pm">3pm-5pm</option>
+                            <option value="4pm-6pm">4pm-6pm</option>
+                            <option value="7pm-9pm">7pm-9pm</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">START DATE: </td>
+                    <td>
+                      <input class="commonInput" type="date" name="startDate" id="startDate" onblur="checkStartDate(),activateEndDate()">
+                    </td>
+                    <td>
+                      <div id="divStartDate"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">END DATE: </td>
+                    <td>
+                        <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate()" class="commonInput">
+                    </td>
+                    <td>
+                        <div id="divEndDate"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" valign="center">
+                        <button class="buttons" onclick="cheeckAllInput()">Add</button>
+                        <button type="reset" class="buttons">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+</html>
+
+<script language="JavaScript" type="text/javascript">
+    var flagTheatre = false;
+    var flagScreen = false;
+    var flagShowtimes = false;
+    var flagStartDate = false;
+    var flagEndDate = false;
+
+    function checkTheatre(htmlObj) {
+        var thtname = htmlObj.value;
+        if (thtname = "Select Theatre") {
+            flagTheatre = false;
+            document.getElementById("divTheatre").innerHTML = "Please select theatre.";
+        }
+        else {
+            flagTheatre = true;
+            document.getElementById("divTheatre").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("optTheatreName").className = "commonInput";
+        }
+    }
+
+    function checkStartDate() {
+        var strStDate = document.getElementById("startDate").value;
+        var stdate = new Date(strStDate).setHours(0, 0, 0, 0);
+        var today = new Date().setHours(0, 0, 0, 0);
+        console.log(strStDate);
+        if (strStDate == "") {
+            flagStartDate = false;
+            document.getElementById("divStartDate").innerHTML = "Please enter date";
+        } else {
+            flagStartDate = false;
+            if (stdate < today) {
+                document.getElementById("divStartDate").innerHTML = "Invalid Date";
+                document.getElementById("startDate").className = "error";
+                flagStartDate = false;
+            } else {
+                flagStartDate = true;
+                document.getElementById("divStartDate").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("startDate").className = "commonInput";
+            }
+        }
+    }
+
+    function activateEndDate() {
+        if (flagStartDate == true)
+            document.getElementById("endDate").disabled = false;
+    }
+
+    function activateScreen() {
+        if (flagTheatre == true)
+            document.getElementById("optScreen").disabled = false;
+    }
+
+    function activateShowtime() {
+        if (flagTheatre == true)
+            document.getElementById("optShowtime").disabled = false;
+    }
+
+    function checkEndDate() {
+        var strStDate = document.getElementById("startDate").value;
+        var stdate = new Date(strStDate);
+        var strEndDate = document.getElementById("endDate").value;
+        var endDate = new Date(strEndDate);
+        var minDate = new Date(stdate.getFullYear(), stdate.getMonth(), stdate.getDate() + 3);
+        var maxDate = new Date(endDate.getFullYear(), endDate.getMonth() + 3, endDate.getDate());
+        if (strEndDate == "") {
+            flagEndDate = false;
+            document.getElementById("divEndDate").innerHTML = "Please enter date";
+        } else {
+            flagEndDate = false;
+            if (!(minDate <= endDate && endDate <= maxDate)) {
+                document.getElementById("divEndDate").innerHTML = "Invalid Date";
+                document.getElementById("endDate").className = "error";
+                flagEndDate = false;
+            } else {
+                flagEndDate = true;
+                document.getElementById("divEndDate").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("endDate").className = "commonInput";
+            }
+        }
+    }
+
+</script>

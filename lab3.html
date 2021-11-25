@@ -146,7 +146,7 @@
             <tr>
               <td class="commonLabel">SCHEDULED_END_DATE: </td>
               <td>
-                <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate()" class="commonInput">
+                <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate(),activateLeadEndDate()" class="commonInput">
               </td>
               <td>
                 <div id="divEndDate"></div>
@@ -159,7 +159,7 @@
             <tr>
                 <td class="commonLabel">LEAD_START_DATE: </td>
                 <td>
-                  <input readonly class="commonInput" type="date" name="leadStartDate" id="leadStartDate" onblur="checkLeadStartDate(),activateLeadEndDate()">
+                  <input readonly class="commonInput" type="date" name="leadStartDate" id="leadStartDate" onblur="checkLeadStartDate()">
                 </td>
                 <td>
                   <div id="divLeadStartDate"></div>
@@ -225,60 +225,36 @@
     function checkDomain(htmlObj) {
         var strDomain = htmlObj.value;
         if (strDomain == "") {
-        flagDomain = false;
-        document.getElementById("divTechDomain").innerHTML = "Please Enter Domain Name.";
-        } else {
             flagDomain = false;
-            var valid = /^[a-zA-Z, ]+$/;
-            if (!strDomain.match(valid)) {
-                document.getElementById("divTechDomain").innerHTML = "Invalid Domain Name. Only alphabets, comma(',') and space allowed.";
-                document.getElementById("txtTechDomain").className = "error";
-                flagDomain = false;
-            } else {
-                flagDomain = true;
-                document.getElementById("divTechDomain").innerHTML = "<img src=tick.jpg>";
-                document.getElementById("txtTechDomain").className = "commonInput";
-            }
+            document.getElementById("divTechDomain").innerHTML = "Please Enter Domain Name.";
+        } else {
+            flagDomain = true;
+            document.getElementById("divTechDomain").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtTechDomain").className = "commonInput";
         }
     }
 
     function checkDescription(htmlObj) {
         var strDescription = htmlObj.value;
         if (strDescription == "") {
-        flagDescription = false;
-        document.getElementById("divDescription").innerHTML = "Please Enter Domain Name.";
-        } else {
             flagDescription = false;
-            var valid = /^[a-zA-Z, ]+$/;
-            if (!strDescription.match(valid)) {
-                document.getElementById("divDescription").innerHTML = "Invalid Destination. Only alphabets, comma(',') and space allowed.";
-                document.getElementById("txtDescription").className = "error";
-                flagDescription = false;
-            } else {
-                flagDescription = true;
-                document.getElementById("divDescription").innerHTML = "<img src=tick.jpg>";
-                document.getElementById("txtDescription").className = "commonInput";
-            }
+            document.getElementById("divDescription").innerHTML = "Please Enter Domain Name.";
+        } else {
+            flagDescription = true;
+            document.getElementById("divDescription").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtDescription").className = "commonInput";
         }
     }
 
     function checkClient(htmlObj) {
         var strClient = htmlObj.value;
         if (strClient == "") {
-        flagClient = false;
-        document.getElementById("divClient").innerHTML = "Please Enter Domain Name.";
-        } else {
             flagClient = false;
-            var valid = /^[a-zA-Z, ]+$/;
-            if (!strClient.match(valid)) {
-                document.getElementById("divClient").innerHTML = "Invalid Destination. Only alphabets, comma(',') and space allowed.";
-                document.getElementById("txtClient").className = "error";
-                flagClient = false;
-            } else {
-                flagClient = true;
-                document.getElementById("divClient").innerHTML = "<img src=tick.jpg>";
-                document.getElementById("txtClient").className = "commonInput";
-            }
+            document.getElementById("divClient").innerHTML = "Please Enter Domain Name.";
+        } else {
+            flagClient = true;
+            document.getElementById("divClient").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtClient").className = "commonInput";
         }
     }
 
@@ -306,7 +282,7 @@
     }
 
     function readonlystdate() {
-      document.getElementById("leadStartDate").value = document.getElementById("startDate").value;
+        document.getElementById("leadStartDate").value = document.getElementById("startDate").value;
     }
 
     function activateEndDate() {
@@ -319,8 +295,8 @@
         var stdate = new Date(strStDate);
         var strEndDate = document.getElementById("endDate").value;
         var endDate = new Date(strEndDate);
-        var minDate = new Date(stdate.getFullYear(), stdate.getMonth(), stdate.getDate() + 1);
-        var maxDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 90);
+        var minDate = new Date(stdate.getFullYear(), stdate.getMonth() + 1, stdate.getDate());
+        var maxDate = new Date(endDate.getFullYear() + 7, endDate.getMonth(), endDate.getDate());
         if (strEndDate == "") {
             flagEndDate = false;
             document.getElementById("divEndDate").innerHTML = "Please enter date";
@@ -338,12 +314,17 @@
         }
     }
 
+    function activateLeadEndDate() {
+        if (flagEndDate == true)
+            document.getElementById("leadEndDate").disabled = false;
+    }
+
     function checkLeadEndDate() {
         var strStDate1 = document.getElementById("leadStartDate").value;
         var stdate1 = new Date(strStDate1);
         var strEndDate1 = document.getElementById("leadEndDate").value;
         var endDate1 = new Date(strEndDate1);
-        var minDate1 = new Date(stdate1.getFullYear(), stdate1.getMonth() +1, stdate1.getDate() );
+        var minDate1 = new Date(stdate1.getFullYear(), stdate1.getMonth() + 1, stdate1.getDate() );
         var maxDate1 = new Date(document.getElementById("endDate").value);
         maxDate1.setHours(0,0,0,0);
         endDate1.setHours(0,0,0,0);
@@ -417,60 +398,54 @@
                   {
                     if (document.getElementById("txtProjLead").value != "")
                     {
-                      if (document.getElementById("leadStartDate").value != "" && flagLeadStartDate != false)
+                      if (document.getElementById("leadEndDate").value != "" && flagLeadEndDate != false)
                       {
-                        if (document.getElementById("leadEndDate").value != "" && flagLeadEndDate != false)
-                        {
-                          var headerContent = "";
-                          headerContent = "<table border=0><tr>";
-                          headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Project ID</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Project Name</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Technology Domain</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Description</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Client</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Scheduled End Date</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Project Lead</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Lead Start Date</td>";
-                          headerContent += "<td align=center valign=center class=headerCell> Lead End Date</td>";
-                          headerContent += "</tr>";
-                          var pid = document.getElementById("txtProjectID").value;
-                          var projectName = document.getElementById("txtProjectName").value;
-                          var techDomain = document.getElementById("txtTechDomain").value;
-                          var description = document.getElementById("txtDescription").value;
-                          var startDate = document.getElementById("startDate").value;
-                          var endDate = document.getElementById("endDate").value;
-                          var projLead = document.getElementById("txtProjLead").value;
-                          var leadStartDate = document.getElementById("leadStartDate").value;
-                          var leadEndDate = document.getElementById("leadEndDate").value;
+                        var headerContent = "";
+                        headerContent = "<table border=0><tr>";
+                        headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Project ID</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Project Name</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Technology Domain</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Description</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Client</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Scheduled End Date</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Project Lead</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Lead Start Date</td>";
+                        headerContent += "<td align=center valign=center class=headerCell> Lead End Date</td>";
+                        headerContent += "</tr>";
+                        var pid = document.getElementById("txtProjectID").value;
+                        var projectName = document.getElementById("txtProjectName").value;
+                        var techDomain = document.getElementById("txtTechDomain").value;
+                        var description = document.getElementById("txtDescription").value;
+                        var startDate = document.getElementById("startDate").value;
+                        var endDate = document.getElementById("endDate").value;
+                        var projLead = document.getElementById("txtProjLead").value;
+                        var leadStartDate = document.getElementById("leadStartDate").value;
+                        var leadEndDate = document.getElementById("leadEndDate").value;
 
-                          userRow += "<tr>";
-                          userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + pid + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + projectName + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + techDomain + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + description + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + startDate + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + endDate + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + projLead + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + leadStartDate + "</td>";
-                          userRow += "<td align=center valign=center class=commonCell>" + leadEndDate + "</td>";
-                          userRow += "</tr>";
-                          var content = headerContent + userRow + "</table>";
-                          document.getElementById("divShowProjects").innerHTML = content;
-                          alert("Course succesfully added!");
-                          document.getElementById("frmProjReg").reset();
-                          count++;
-                          getId();
-                        }
-                        else {
-                          alert("Please enter lead end date");
-                        }
+                        userRow += "<tr>";
+                        userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + pid + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + projectName + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + techDomain + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + description + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + startDate + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + endDate + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + projLead + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + leadStartDate + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + leadEndDate + "</td>";
+                        userRow += "</tr>";
+                        var content = headerContent + userRow + "</table>";
+                        document.getElementById("divShowProjects").innerHTML = content;
+                        alert("Course succesfully added!");
+                        document.getElementById("frmProjReg").reset();
+                        count++;
+                        getId();
                       }
                       else {
-                        alert("Please select the lead start date.");
-                      }
+                        alert("Please enter lead end date");
+                      } 
                     }
                   }
                   else {
