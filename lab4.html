@@ -97,7 +97,7 @@
                 <tr>
                     <td class="commonLabel">MOVIE NAME:</td>
                     <td colspan="2">
-                        <select id="optMovieName" name="optMovieName" class="commonInput" onblur="checkMovieName()">
+                        <select id="optMovieName" name="optMovieName" class="commonInput" onchange="checkMovieName()">
                             <option value="">Select Movie Name</option>
                             <option value="MOVIE 1">MOVIE 1</option>
                             <option value="MOVIE 2">MOVIE 2</option>
@@ -157,7 +157,7 @@
                 <tr>
                     <td class="commonLabel">START DATE: </td>
                     <td>
-                      <input class="commonInput" type="date" name="startDate" id="startDate" onblur="checkStartDate(),activateEndDate()">
+                      <input class="commonInput" type="date" name="startDate" id="startDate" onchange="checkStartDate(),activateEndDate()">
                     </td>
                     <td>
                       <div id="divStartDate"></div>
@@ -166,7 +166,7 @@
                 <tr>
                     <td class="commonLabel">END DATE: </td>
                     <td>
-                        <input disabled type="date" name="endDate" id="endDate" onblur="checkEndDate()" class="commonInput">
+                        <input disabled type="date" name="endDate" id="endDate" onchange="checkEndDate()" class="commonInput">
                     </td>
                     <td>
                         <div id="divEndDate"></div>
@@ -174,7 +174,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="center" valign="center">
-                        <button class="buttons" onclick="cheeckAllInput()">Add</button>
+                        <button class="buttons" onclick="checkAllInput()">Add</button>
                         <button type="reset" class="buttons">Cancel</button>
                     </td>
                 </tr>
@@ -185,6 +185,7 @@
 </html>
 
 <script language="JavaScript" type="text/javascript">
+    var count = 0;
     var flagTheatre = false;
     var flagScreen = false;
     var flagShowtimes = false;
@@ -320,11 +321,45 @@
                                 var shTime = document.getElementById("optShowTime").value;
                                 var startDate = document.getElementById("startDate").value;
                                 var endDate = document.getElementById("endDate").value;
+
+                                userRow += "<tr>";
+                                userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                                userRow += "<td align=center valign=center class=commonCell>" + movName + "</td>";
+                                userRow += "<td align=center valign=center class=commonCell>" + thtName + "</td>";
+                                userRow += "<td align=center valign=center class=commonCell>" + scr + "</td>";
+                                userRow += "<td align=center valign=center class=commonCell>" + shTime + "</td>";
+                                userRow += "<td align=center valign=center class=commonCell>" + startDate + "</td>";
+                                userRow += "<td align=center valign=center class=commonCell>" + endDate + "</td>";
+                                userRow += "</tr>";
+                                var content = headerContent + userRow + "</table>";
+                                document.getElementById("divShowCourses").innerHTML = content;
+                                alert("Course succesfully added!");
+                                document.getElementById("frmCourseReg").reset();
+                                count++;
+                                getId();
+                            }
+                            else {
+                                alert("Please select the end date.");
                             }
                         }
+                        else {
+                            alert("Please select the start date.");
+                        }
+                    }
+                    else {
+                        alert("Please select showtime.");
                     }
                 }
+                else {
+                    alert("Please select screen.");
+                }
             }
+            else {
+                alert("Please select theatre name.");
+            }
+        }
+        else {
+            alert("Please select movie name.");
         }
     }
 
