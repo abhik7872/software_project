@@ -97,7 +97,7 @@
                 <tr>
                     <td class="commonLabel">MOVIE NAME:</td>
                     <td colspan="2">
-                        <select id="optMovieName" name="optMovieName" class="commonInput" onchange="checkMovieName()">
+                        <select id="optMovieName" name="optMovieName" class="commonInput" onchange="checkMovieName(this)">
                             <option value="">Select Movie Name</option>
                             <option value="MOVIE 1">MOVIE 1</option>
                             <option value="MOVIE 2">MOVIE 2</option>
@@ -105,6 +105,9 @@
                             <option value="MOVIE 4">MOVIE 4</option>
                             <option value="MOVIE 5">MOVIE 5</option>
                         </select>
+                    </td>
+                    <td>
+                        <div id="divMovieName"></div>
                     </td>
                 </tr>
                 <tr>
@@ -189,11 +192,25 @@
 
 <script language="JavaScript" type="text/javascript">
     var count = 0;
+    var flagMovieName = false;
     var flagTheatre = false;
     var flagScreen = false;
     var flagShowtimes = false;
     var flagStartDate = false;
     var flagEndDate = false;
+
+    function checkMovieName(htmlObj) {
+        var mvName = htmlObj.value;
+        if (mvName == "") {
+            flagMovieName = false;
+            document.getElementById("divMovieName").innerHTML = "Please select movie name."
+        }
+        else {
+            flagMovieName = true;
+            document.getElementById("divMovieName").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("optMovieName").className = "commonInput";
+        }
+    }
 
     function checkTheatre(htmlObj) {
         var thtname = htmlObj.value;
