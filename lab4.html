@@ -194,7 +194,6 @@
 
     function checkTheatre(htmlObj) {
         var thtname = htmlObj.value;
-        console.log(thtname) // TODO: remove this line
         if (thtname == "") {
             flagTheatre = false;
             document.getElementById("divTheatre").innerHTML = "Please select theatre.";
@@ -209,7 +208,6 @@
 
     function checkScreen(htmlObj) {
         var scrName = htmlObj.value;
-        console.log(scrName);
         if (scrName == "") {
             flagScreen = false;
             document.getElementById("divScreen").innerHTML = "Please select screen.";
@@ -224,7 +222,6 @@
 
     function checkShowTime(htmlObj) {
         var showTime = htmlObj.value;
-        console.log(showTime);
         if (showTime == "") {
             flagShowtimes = false;
             document.getElementById("divShowTime").innerHTML = "Please select show time.";
@@ -240,7 +237,6 @@
         var strStDate = document.getElementById("startDate").value;
         var stdate = new Date(strStDate).setHours(0, 0, 0, 0);
         var today = new Date().setHours(0, 0, 0, 0);
-        console.log(strStDate);
         if (strStDate == "") {
             flagStartDate = false;
             document.getElementById("divStartDate").innerHTML = "Please enter date";
