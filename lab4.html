@@ -181,6 +181,9 @@
             </table>
         </form>
     </center>
+    <table>
+        <div id="divShowMovies"></div>
+      </table>
 </body>
 </html>
 
@@ -328,11 +331,10 @@
                                 userRow += "<td align=center valign=center class=commonCell>" + endDate + "</td>";
                                 userRow += "</tr>";
                                 var content = headerContent + userRow + "</table>";
-                                document.getElementById("divShowCourses").innerHTML = content;
+                                document.getElementById("divShowMovies").innerHTML = content;
                                 alert("Course succesfully added!");
-                                document.getElementById("frmCourseReg").reset();
+                                document.getElementById("frmMovReg").reset();
                                 count++;
-                                getId();
                             }
                             else {
                                 alert("Please select the end date.");
