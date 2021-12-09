@@ -249,7 +249,7 @@
         else {
             flagShowtimes = true;
             document.getElementById("divShowTime").innerHTML = "<img src=tick.jpg>";
-            document.getElementById("optShowTime").className = "commonInput";
+            document.getElementById("optShowtime").className = "commonInput";
         }
     }
 
@@ -318,7 +318,7 @@
         if (document.getElementById("optMovieName").value != "") {
             if (document.getElementById("optTheatreName").value != "") {
                 if (document.getElementById("optScreen").value != "") {
-                    if (document.getElementById("optShowTime").value != "") {
+                    if (document.getElementById("optShowtime").value != "") {
                         if (document.getElementById("startDate").value != "" && flagStartDate != false) {
                             if (document.getElementById("endDate").value != "" && flagEndDate != false) {
                                 var headerContent = "";
@@ -334,7 +334,7 @@
                                 var movName = document.getElementById("optMovieName").value;
                                 var thtName = document.getElementById("optTheatreName").value;
                                 var scr = document.getElementById("optScreen").value;
-                                var shTime = document.getElementById("optShowTime").value;
+                                var shTime = document.getElementById("optShowtime").value;
                                 var startDate = document.getElementById("startDate").value;
                                 var endDate = document.getElementById("endDate").value;
 
