@@ -191,7 +191,7 @@
 </html>
 
 <script language="JavaScript" type="text/javascript">
-    var count = 0;
+    var count = 1;
     var flagMovieName = false;
     var flagTheatre = false;
     var flagScreen = false;
@@ -315,12 +315,12 @@
 
     var userRow = "";
     function checkAllInput() {
-        if (document.getElementById("optMovieName").value != "") {
-            if (document.getElementById("optTheatreName").value != "") {
-                if (document.getElementById("optScreen").value != "") {
-                    if (document.getElementById("optShowtime").value != "") {
-                        if (document.getElementById("startDate").value != "" && flagStartDate != false) {
-                            if (document.getElementById("endDate").value != "" && flagEndDate != false) {
+        if (document.getElementById("optMovieName").value != "" && flagMovieName == true) {
+            if (document.getElementById("optTheatreName").value != "" && flagTheatre == true) {
+                if (document.getElementById("optScreen").value != "" && flagScreen == true) {
+                    if (document.getElementById("optShowtime").value != "" && flagShowtimes == true) {
+                        if (document.getElementById("startDate").value != "" && flagStartDate == true) {
+                            if (document.getElementById("endDate").value != "" && flagEndDate == true) {
                                 var headerContent = "";
                                 headerContent = "<table border=0><tr>";
                                 headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
