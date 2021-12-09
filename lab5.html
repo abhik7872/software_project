@@ -85,7 +85,7 @@
 </style>
 <body onload="getId()">
     <center>
-        <form>
+        <form id="frmCourseAlloc" name="frmCourseAlloc">
             <table class="box">
                 <tr>
                   <td colspan="3" class="commonHeader">
@@ -109,7 +109,7 @@
                         </select>
                     </td>
                     <td>
-                        <div id="divSujectName"></div>
+                        <div id="divSubjectName"></div>
                     </td>
                 </tr>
                 <tr>
@@ -135,6 +135,9 @@
                         <button type="reset" class="buttons">Cancel</button>
                     </td>
                 </tr>
+            </table>
+            <table>
+                <div id="divShowCourses"></div>
             </table>
         </form>
     </center>
@@ -227,5 +230,50 @@
         document.getElementById("txtTopicID").value = tid;
         document.getElementById("divTopicName").innerHTML = "";
         document.getElementById("txtTopicName").className = "commonInput";
+    }
+
+    var userRow = "";
+    function checkAllInput() {
+        if (document.getElementById("txtTopicID").value != "") {
+            if (document.getElementById("optSubjectName").value != "" && flagSubject == true) {
+                if (document.getElementById("optmoduleid").value != "" && flagModule == true) {
+                    if (document.getElementById("txtTopicName").value != "" && flagTopicName == true) {
+                        var headerContent = "";
+                        headerContent = "<table border=0><tr>";
+                        headerContent+="<td align=center valign=center class=headerCell> Sl.No.</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Topic ID</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Subject</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> MOdule</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Topic Name</td>";
+                        headerContent+="</tr>";
+                        var tid = document.getElementById("txtTopicID").value;
+                        var sub = document.getElementById("optSubjectName").value;
+                        var mod = document.getElementById("optmoduleid").value;
+                        var tname = document.getElementById("txtTopicName").value;
+                        userRow += "<tr>";
+                        userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + tid + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + sub + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + mod + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + tname + "</td>";
+                        userRow += "</tr>";
+                        var content = headerContent+userRow+"</table>";
+                        document.getElementById("divShowCourses").innerHTML = content;
+                        alert("Course succesfully added!");
+                        document.getElementById("frmCourseAlloc").reset();
+                        count++;
+                        getId();
+                    } else {
+                        alert("Please enter topic name!");
+                    }
+                } else {
+                    alert("Please enter module!");
+                }
+            } else {
+                alert("Please enter subject name!");
+            }
+        } else {
+            alert("Please reload the page. Error on loading.");
+        }
     }
 </script>
