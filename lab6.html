@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Schemes Application Form</title>
+</head>
+<style type="text/css">
+    .commonHeader{
+        font-family: calibri;
+        font-size: large;
+        font-weight: bold;
+        text-align: center;
+        margin: 5px;
+        color: midnightblue;
+    }
+    .commonLabel{
+        font-family: calibri;
+        font-size: medium;
+        font-weight: bold;
+        text-align: right;
+        margin: 5px;
+        padding: 5px;
+        color: midnightblue;
+    }
+    .commonInput{
+        font-family: calibri;
+        font-size: medium;
+        border-radius: 5px;
+        border: 2px solid lightblue;
+        text-align: left;
+        margin: 5px;
+        padding: 8px;
+    }
+    .headerCell{
+        font-family: calibri;
+        font-size: large;
+        color: #8f3925;
+        border-radius: 5px;
+        border: 2px solid #934422;
+        text-align: center;
+        background: #efbada;
+        padding: 5px;
+    }
+    .commonCell{
+        font-family: calibri;
+        font-size: medium;
+        color: #122354;
+        border: 2px solid #934422;
+        border-radius: 5px;
+        text-align: center;
+        padding: 10px;
+    }
+    .error{
+        background-color: #EEDDDD;
+    }
+    .box{
+        box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        margin: 20px, 20px;
+        padding: 34px;
+        justify-content: center;
+    }
+    .buttons {
+        font-family: calibri;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 8px 12px 8px 12px;
+        margin-left: 10px;
+        margin-top: 10px;
+        box-shadow: 3px 3px 10px 2px #CECEDE;
+        border: none;
+    }
+    .button1 {
+        border-radius: 5px;
+        padding: 10px 14px 10px 14px;
+        background: linear-gradient(180deg, #667799, #7799CC); 
+        color: white; 
+        box-shadow: 3px 3px 10px 2px #CCCCDD;
+        border: 1px solid #DCDCEE;
+        cursor: pointer;
+    }
+    .button1:hover {
+        background: linear-gradient(180deg, #DCDCEE, #FEFEFF);
+        color: royalblue;
+    }
+
+</style>
+<body>
+    <center>
+        <form>
+            <table class="box">
+                <tr>
+                    <td colspan="3" class="commonHeader">
+                        <h2>Investment Schemes Application Form</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Scheme Name:</td>
+                    <td colspan="2"><input id="txtSchemeName" name="txtSchemeName" type="text" maxlength="12" class="commonInput" placeholder="E.G. JVISMAXSAVE" onblur="checkSchemeName(this)" /></td>
+                    <td>
+                        <div id="divSchemeName"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Date of Introduction:</td>
+                    <td>
+                        <input class="commonInput" type="date" name="intDate" id="intDate" onblur="checkIntDate(this)">
+                    </td>
+                    <td>
+                        <div id="divIntDate"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Scheme Type:</td>
+                    <td colspan="2">
+                        <select id="optSchemeType" name= "optSchemeType" class="commonInput" onblur="checkSchemeType(this)">
+                            <option value="">Select Scheme Type</option>
+                            <option value="SIP">SIP</option>
+                            <option value="MIS">MIS</option>
+                            <option value="STI">STI</option>
+                            <option value="LTI">LTI</option>
+                            <option value="FD">FD</option>
+                            <option value="RD">RD</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divSchemeType"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Yearly Interest Rate:</td>
+                    <td colspan="2"><input id="txtYrIncrRate" name="txtYrIncrRate" type="number" maxlength="6" class="commonInput" placeholder="E.G. 08.1" onblur="checkYrIncrRate(this)" />%</td>
+                    <td>
+                        <div id="divYrIncrRate"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">IRDA CODE:</td>
+                    <td colspan="2"><input id="txtIRDACode" name="txtIRDACode" type="text" maxlength="13" class="commonInput" placeholder="E.G. 91-4523-XDS-9" onblur="checkIRDA(this)" /></td>
+                    <td>
+                        <div id="divIRDACode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Yearly Minimum Investment:</td>
+                    <td><input id="txtMinInv" name="txtMinInv" type="number" maxlength="12" class="commonInput" onblur="checkInv()"></td>
+                    <td>
+                        <div id="divMinInv"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Minimum Tenure of Investment:</td>
+                    <td colspan="2">
+                        <select id="optMinTenInvestment" name= "optMinTenInvestment" class="commonInput" onblur="checkMinTenInvestment(this)">
+                            <option value="">Select Minimum Tenure of Investment</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divMinTenInvestment"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Pre-mature Closure Charge:</td>
+                    <td colspan="2"><input id="txtPMCCharge" name="txtPMCCharge" type="number" maxlength="6" class="commonInput" placeholder="E.G. 02.0" onblur="checkPMCCharege(this)" />%</td>
+                    <td>
+                        <div id="divPMCCharge"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" valign="center">
+                        <button class="buttons button1" onclick="cheeckAllInput()">Register</button>
+                        <button type="reset" class="buttons button1">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+    <table>
+        <div id="divShowSchemes"></div>
+    </table>
+</body>
+</html>
+
+<script language="JavaScript" type="text/javascript">
+    var count = 1;
+    var flagSchemeName = false;
+    var flagIntDate = false;
+    var flagSchemeType = false;
+    var flagYrIncrRate = false;
+    var flagIRDA = false;
+    var flagMinInv = false;
+    var flagMinTenInv = false;
+    var flagPMCCharege = false;
+
+    function checkSchemeName(htmlobj) {
+        var scName = htmlobj.value;
+        if (scName == "") {
+            flagSchemeName = false;
+            document.getElementById("divSchemeName").innerHTML = "Please Enter Scheme Name";
+        } else {
+            flagSchemeName = false;
+            var valid = /^[A-Z]*$/;
+            if (!scName.match(valid)) {
+                document.getElementById("divSchemeName").innerHTML = "Only capital alphabets will be allowed, must start with JVIS, e.g. JVISMAXSAVE";
+                document.getElementById("txtSchemeName").className = "error";
+                flagSchemeName = false;
+            } else {
+                flagSchemeName = true;
+                document.getElementById("divSchemeName").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtSchemeName").className = "commonInput";
+            }
+        }
+    }
+
+    function checkIntDate(htmlobj) {
+        var intDate = htmlobj.value;
+        var stdate = new Date(intDate).setHours(0, 0, 0, 0);
+        var today = new Date().setHours(0, 0, 0, 0);
+        if (intDate == "") {
+            flagIntDate = false;
+            document.getElementById("divIntDate").innerHTML = "Please Enter Date";
+        } else {
+            flagIntDate = false;
+            if (stdate < today) {
+                document.getElementById("divIntDate").innerHTML = "Invalid Input";
+                document.getElementById("intDate").className = "error";
+                flagIntDate = false;
+            } else {
+                flagIntDate = true;
+                document.getElementById("divIntDate").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("intDate").className = "commonInput";
+            }
+        }
+    }
+
+    function checkSchemeType(htmlobj) {
+        var schType = htmlobj.value;
+        if (schType == "") {
+            flagSchemeType = false;
+            document.getElementById("divSchemeType").innerHTML = "Please Enter Scheme Type";
+        } else {
+            document.getElementById("divSchemeType").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("optSchemeType").className = "commonInput";
+        }
+    }
+
+    function checkYrIncrRate(htmlobj) {
+        var yrIncrRate = htmlobj.value;
+        if (yrIncrRate == "") {
+            flagYrIncrRate = false;
+            document.getElementById("divYrIncrRate").innerHTML = "Please Enter Scheme Type";
+        } else {
+            document.getElementById("divYrIncrRate").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtYrIncrRate").className = "commonInput";
+            flagYrIncrRate = true;
+        }
+    }
+
+    function checkIRDA(htmlobj) {
+        var irda = htmlobj.value;
+        if (irda == "") {
+            flagIRDA = false;
+            document.getElementById("divIRDACode").innerHTML = "Please Enter IRDA Code";
+        } else {
+            document.getElementById("divIRDACode").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtIRDACode").className = "commonInput";
+            flagIRDA = true;
+        }
+    }
+
+    function checkInv(htmlobj) {
+        var inv = htmlobj.value;
+        if (inv == "") {
+            flagMinInv = false;
+            document.getElementById("divMinInv").innerHTML = "Please Enter Yearly Minimum Investment";
+        } else {
+            document.getElementById("divMinInv").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtMinInv").className = "commonInput";
+            flagMinInv = true;
+        }
+    }
+
+    function checkMinTenInvestment(htmlobj) {
+        var minTenInv = htmlobj.value;
+        if (minTenInv == "") {
+            flagMinTenInv = false;
+            document.getElementById("divMinTenInvestment").innerHTML = "Please Enter Minimum Tenure of Investment";
+        } else {
+            document.getElementById("divMinTenInvestment").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("optMinTenInvestment").className = "commonInput";
+            flagMinTenInv = true;
+        }
+    }
+
+    function checkPMCCharege(htmlobj) {
+        var pmccharge = htmlobj.value;
+        if (pmccharge == "") {
+            flagPMCCharege = false;
+            document.getElementById("divPMCCharge").innerHTML = "Please Enter Pre-mature Closure Charge";
+        } else {
+            document.getElementById("divPMCCharge").innerHTML = "<img src=tick.jpg>";
+            document.getElementById("txtPMCCharge").className = "commonInput";
+            flagPMCCharege = true;
+        }
+    }
+</script>
