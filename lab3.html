@@ -159,7 +159,7 @@
             <tr>
                 <td class="commonLabel">LEAD_START_DATE: </td>
                 <td>
-                  <input readonly class="commonInput" type="date" name="leadStartDate" id="leadStartDate" onblur="checkLeadStartDate()">
+                  <input readonly class="commonInput" type="date" name="leadStartDate" id="leadStartDate">
                 </td>
                 <td>
                   <div id="divLeadStartDate"></div>
@@ -182,10 +182,10 @@
             </tr>
           </table>
         </form>
-      </center>
-      <table>
+        <table>
         <div id="divShowProjects"></div>
       </table>
+      </center>
 </body>
 
 </html>
@@ -380,6 +380,20 @@
     }
 
     var userRow = "";
+    var headerContent = "";
+    headerContent = "<table border=0><tr>";
+    headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Project ID</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Project Name</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Technology Domain</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Description</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Client</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Scheduled End Date</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Project Lead</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Lead Start Date</td>";
+    headerContent += "<td align=center valign=center class=headerCell> Lead End Date</td>";
+    headerContent += "</tr>";
     function cheeckAllInput() 
     {
       if (document.getElementById("txtProjectID").value != "")
@@ -400,20 +414,6 @@
                     {
                       if (document.getElementById("leadEndDate").value != "" && flagLeadEndDate != false)
                       {
-                        var headerContent = "";
-                        headerContent = "<table border=0><tr>";
-                        headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Project ID</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Project Name</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Technology Domain</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Description</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Client</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Scheduled End Date</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Project Lead</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Lead Start Date</td>";
-                        headerContent += "<td align=center valign=center class=headerCell> Lead End Date</td>";
-                        headerContent += "</tr>";
                         var pid = document.getElementById("txtProjectID").value;
                         var projectName = document.getElementById("txtProjectName").value;
                         var techDomain = document.getElementById("txtTechDomain").value;
