@@ -233,19 +233,19 @@
     }
 
     var userRow = "";
-    var headerContent = "";
-    headerContent = "<table border=0><tr>";
-    headerContent+="<td align=center valign=center class=headerCell> Sl.No.</td>";
-    headerContent+="<td align=center valign=center class=headerCell> Topic ID</td>";
-    headerContent+="<td align=center valign=center class=headerCell> Subject</td>";
-    headerContent+="<td align=center valign=center class=headerCell> Module</td>";
-    headerContent+="<td align=center valign=center class=headerCell> Topic Name</td>";
-    headerContent+="</tr>";
     function checkAllInput() {
         if (document.getElementById("txtTopicID").value != "") {
             if (document.getElementById("optSubjectName").value != "" && flagSubject == true) {
                 if (document.getElementById("optmoduleid").value != "" && flagModule == true) {
                     if (document.getElementById("txtTopicName").value != "" && flagTopicName == true) {
+                        var headerContent = "";
+                        headerContent = "<table border=0><tr>";
+                        headerContent+="<td align=center valign=center class=headerCell> Sl.No.</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Topic ID</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Subject</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Module</td>";
+                        headerContent+="<td align=center valign=center class=headerCell> Topic Name</td>";
+                        headerContent+="</tr>";
                         var tid = document.getElementById("txtTopicID").value;
                         var sub = document.getElementById("optSubjectName").value;
                         var mod = document.getElementById("optmoduleid").value;

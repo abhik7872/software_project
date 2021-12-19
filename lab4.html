@@ -314,16 +314,6 @@
     }
 
     var userRow = "";
-    var headerContent = "";
-    headerContent = "<table border=0><tr>";
-    headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
-    headerContent += "<td align=center valign=center class=headerCell> Movie Name</td>";
-    headerContent += "<td align=center valign=center class=headerCell> Theatre Name</td>";
-    headerContent += "<td align=center valign=center class=headerCell> Screen</td>";
-    headerContent += "<td align=center valign=center class=headerCell> Showtime</td>";
-    headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
-    headerContent += "<td align=center valign=center class=headerCell> End Date</td>";
-    headerContent += "</tr>";
     function checkAllInput() {
         if (document.getElementById("optMovieName").value != "" && flagMovieName == true) {
             if (document.getElementById("optTheatreName").value != "" && flagTheatre == true) {
@@ -331,6 +321,16 @@
                     if (document.getElementById("optShowtime").value != "" && flagShowtimes == true) {
                         if (document.getElementById("startDate").value != "" && flagStartDate == true) {
                             if (document.getElementById("endDate").value != "" && flagEndDate == true) {
+                                var headerContent = "";
+                                headerContent = "<table border=0><tr>";
+                                headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+                                headerContent += "<td align=center valign=center class=headerCell> Movie Name</td>";
+                                headerContent += "<td align=center valign=center class=headerCell> Theatre Name</td>";
+                                headerContent += "<td align=center valign=center class=headerCell> Screen</td>";
+                                headerContent += "<td align=center valign=center class=headerCell> Showtime</td>";
+                                headerContent += "<td align=center valign=center class=headerCell> Start Date</td>";
+                                headerContent += "<td align=center valign=center class=headerCell> End Date</td>";
+                                headerContent += "</tr>";
                                 var movName = document.getElementById("optMovieName").value;
                                 var thtName = document.getElementById("optTheatreName").value;
                                 var scr = document.getElementById("optScreen").value;
