@@ -176,8 +176,8 @@
               </tr>
               <tr>
                 <td colspan="3" align="center" valign="center">
-                    <button class="buttons" onclick="cheeckAllInput()">Add</button>
-                    <button type="reset" class="buttons">Cancel</button>
+                    <button type="button" class="buttons" onclick="cheeckAllInput()">Add</button>
+                    <button type="reset" class="buttons" onblur="getID()">Cancel</button>
                 </td>
             </tr>
           </table>
@@ -441,7 +441,7 @@
                         alert("Project succesfully added!");
                         document.getElementById("frmProjReg").reset();
                         count++;
-                        getId();
+                        getID();
                       }
                       else {
                         alert("Please enter lead end date");
