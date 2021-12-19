@@ -90,7 +90,7 @@
 </style>
 <body>
     <center>
-        <form>
+        <form id="frmSchemeReg" name="frmSchemeReg" method="post" action="">
             <table class="box">
                 <tr>
                     <td colspan="3" class="commonHeader">
@@ -138,7 +138,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="commonLabel">IRDA CODE:</td>
+                    <td class="commonLabel">IRDA Code:</td>
                     <td colspan="2"><input id="txtIRDACode" name="txtIRDACode" type="text" maxlength="13" class="commonInput" placeholder="E.G. 91-4523-XDS-9" onblur="checkIRDA(this)" /></td>
                     <td>
                         <div id="divIRDACode"></div>
@@ -146,7 +146,7 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">Yearly Minimum Investment:</td>
-                    <td><input id="txtMinInv" name="txtMinInv" type="number" maxlength="12" class="commonInput" onblur="checkInv()"></td>
+                    <td><input id="txtMinInv" name="txtMinInv" type="number" maxlength="12" class="commonInput" onblur="checkInv(this)"></td>
                     <td>
                         <div id="divMinInv"></div>
                     </td>
@@ -175,7 +175,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="center" valign="center">
-                        <button type="button" class="buttons button1" onclick="cheeckAllInput()">Register</button>
+                        <button type="button" class="buttons button1" onclick="checkAllInput()">Register</button>
                         <button type="reset" class="buttons button1">Cancel</button>
                     </td>
                 </tr>
@@ -204,11 +204,14 @@
         if (scName == "") {
             flagSchemeName = false;
             document.getElementById("divSchemeName").innerHTML = "Please Enter Scheme Name";
+        } else if (!scName.startsWith("JVIS")) {
+            flagSchemeName = false;
+            document.getElementById("divSchemeName").innerHTML = "Schema Name must start with JVIS e.g. JVISMAXSAVE";
         } else {
             flagSchemeName = false;
-            var valid = /^[A-Z]*$/;
+            var valid = /^[A-Z ]+$/;
             if (!scName.match(valid)) {
-                document.getElementById("divSchemeName").innerHTML = "Only capital alphabets will be allowed, must start with JVIS, e.g. JVISMAXSAVE";
+                document.getElementById("divSchemeName").innerHTML = "Only capital alphabets will be allowed";
                 document.getElementById("txtSchemeName").className = "error";
                 flagSchemeName = false;
             } else {
@@ -228,7 +231,7 @@
             document.getElementById("divIntDate").innerHTML = "Please Enter Date";
         } else {
             flagIntDate = false;
-            if (stdate < today) {
+            if (stdate < today) {flagIRDA = true;
                 document.getElementById("divIntDate").innerHTML = "Invalid Input";
                 document.getElementById("intDate").className = "error";
                 flagIntDate = false;
@@ -269,10 +272,20 @@
             flagIRDA = false;
             document.getElementById("divIRDACode").innerHTML = "Please Enter IRDA Code";
         } else {
-            document.getElementById("divIRDACode").innerHTML = "<img src=tick.jpg>";
-            document.getElementById("txtIRDACode").className = "commonInput";
-            flagIRDA = true;
+            flagIRDA = false;
+            var valid = /^[0-9A-Z ]+$/;
+            if (!irda.match(valid)) {
+                document.getElementById("divIRDACode").innerHTML = "Only Capital letters are allowed";
+                document.getElementById("txtIRDACode").className = "error";
+                flagIRDA = false;
+            } else {
+                flagIRDA = true;
+                document.getElementById("divIRDACode").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtIRDACode").className = "commonInput";
+            }
         }
+        irda.replace(/(\d{2})(\d{4})(\d{3})/, "$1-$2-$3");
+        console.log(irda);
     }
 
     function checkInv(htmlobj) {
@@ -308,6 +321,81 @@
             document.getElementById("divPMCCharge").innerHTML = "<img src=tick.jpg>";
             document.getElementById("txtPMCCharge").className = "commonInput";
             flagPMCCharege = true;
+        }
+    }
+
+    var userRow = "";
+    function checkAllInput() {
+        if (document.getElementById("txtSchemeName").value != "" && flagSchemeName == true) {
+            if (document.getElementById("intDate").value != "" && flagIntDate == true) {
+                if (document.getElementById("optSchemeType").value != "" && flagSchemeType == true) {
+                    if (document.getElementById("txtYrIncrRate").value != "" && flagYrIncrRate == true) {
+                        if (document.getElementById("txtIRDACode").value != "" && flagIRDA == true) {
+                            if (document.getElementById("txtMinInv").value != "" && flagMinInv == true) {
+                                if (document.getElementById("optMinTenInvestment").value != "" && flagMinTenInv == true) {
+                                    if (document.getElementById("txtPMCCharge").value != "" && flagPMCCharege == true) {
+                                        var headerContent = "";
+                                        headerContent = "<table border=0><tr>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Scheme Name</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Date of Introduction</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Scheme Type</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Yearly Interest Rate</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> IRDA Code</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Yearly Minimum Investment</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Minimum Tenure of Investment</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Pre-mature Closure Charge</td>";
+                                        headerContent += "</tr>";
+
+                                        var schName = document.getElementById("txtSchemeName").value;
+                                        var inDate = document.getElementById("intDate").value;
+                                        var scType = document.getElementById("optSchemeType").value;
+                                        var yrInR = document.getElementById("txtYrIncrRate").value;
+                                        var ir = document.getElementById("txtIRDACode").value;
+                                        var minI = document.getElementById("txtMinInv").value;
+                                        var minten = document.getElementById("optMinTenInvestment").value;
+                                        var pmc = document.getElementById("txtPMCCharge").value;
+
+                                        userRow += "<tr>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + schName + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + inDate + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + scType + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + yrInR + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + ir + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + minI + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + minten + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + pmc + "</td>";
+                                        userRow += "</tr>";
+
+                                        var content = headerContent + userRow + "</table>";
+                                        document.getElementById("divShowSchemes").innerHTML = content;
+                                        alert("Successfully Registered the Scheme.");
+                                        document.getElementById("frmSchemeReg").reset();
+                                        count++;
+                                    } else {
+                                        alert("Plase enter Pre-mature Closure Charge")
+                                    }
+                                } else {
+                                    alert("Please enter Minimum Tenure of Investment");
+                                }
+                            } else {
+                                alert("Please enter Yearly Minimum Investment");
+                            }
+                        } else {
+                            alert("Please enter IRDA Code");
+                        }
+                    } else {
+                        alert("Please enter Yearly Interest Rate");
+                    }
+                } else {
+                    alert("Please enter Scheme Type");
+                }
+            } else {
+                alert("Please enter Date of Introduction");
+            }
+        } else {
+            alert("Please enter Scheme Name");
         }
     }
 </script>
