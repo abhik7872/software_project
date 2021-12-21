@@ -101,7 +101,7 @@
                 <tr>
                     <td class="commonLabel">SUBJECT:</td>
                     <td colspan="2">
-                        <select id="optSubjectName" name="optSubjectName" class="commonInput" onchange="checkSubject(this)">
+                        <select id="optSubjectName" name="optSubjectName" class="commonInput" onchange="checkSubject(this), loadTopic(this)">
                             <option value="">Select Subject</option>
                             <option value="ESC501">Software Engineering</option>
                             <option value="PCC-CS501">Compiler Design</option>
@@ -114,6 +114,7 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">MODULE:</td>
+                    <td onblur="checkData(this)"></td>
                     <td>
                         <div id="divModule"></div>
                     </td>
@@ -132,7 +133,7 @@
                 <tr>
                     <td colspan="3" align="center" valign="center">
                         <button type="button" class="buttons" onclick="checkAllInput()">Add</button>
-                        <button type="reset" class="buttons">Cancel</button>
+                        <button type="reset" class="buttons" onblur="getId()">Cancel</button>
                     </td>
                 </tr>
             </table>
