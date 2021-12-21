@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Model Registration</title>
+</head>
+<style type="text/css">
+    .commonHeader{
+        font-family: calibri;
+        font-size: large;
+        font-weight: bold;
+        text-align: center;
+        margin: 5px;
+        color: midnightblue;
+    }
+    .commonLabel{
+        font-family: calibri;
+        font-size: medium;
+        font-weight: bold;
+        text-align: right;
+        margin: 5px;
+        padding: 5px;
+        color: midnightblue;
+    }
+    .commonInput{
+        font-family: calibri;
+        font-size: medium;
+        border-radius: 5px;
+        border: 2px solid lightblue;
+        text-align: left;
+        margin: 5px;
+        padding: 8px;
+    }
+    .headerCell{
+        font-family: calibri;
+        font-size: large;
+        color: #8f3925;
+        border-radius: 5px;
+        border: 2px solid #934422;
+        text-align: center;
+        background: #efbada;
+        padding: 5px;
+    }
+    .commonCell{
+        font-family: calibri;
+        font-size: medium;
+        color: #122354;
+        border: 2px solid #934422;
+        border-radius: 5px;
+        text-align: center;
+        padding: 10px;
+    }
+    .error{
+        background-color: #EEDDDD;
+    }
+    .box{
+        box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        margin: 20px, 20px;
+        padding: 34px;
+        justify-content: center;
+    }
+    .buttons {
+        font-family: calibri;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 8px 12px 8px 12px;
+        margin-left: 10px;
+        margin-top: 10px;
+        box-shadow: 3px 3px 10px 2px #CECEDE;
+        border: none;
+    }
+    .button1 {
+        border-radius: 5px;
+        padding: 10px 14px 10px 14px;
+        background: linear-gradient(180deg, #667799, #7799CC); 
+        color: white; 
+        box-shadow: 3px 3px 10px 2px #CCCCDD;
+        border: 1px solid #DCDCEE;
+        cursor: pointer;
+    }
+    .button1:hover {
+        background: linear-gradient(180deg, #DCDCEE, #FEFEFF);
+        color: royalblue;
+    }
+</style>
+<body>
+    <center>
+        <form id="frmProdReg" name="frmProdReg" method="post" action="">
+            <table class="box">
+                <tr>
+                    <td colspan="3" class="commonHeader">
+                        <h2>Product Model Registration</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Model No:</td>
+                    <td colspan="2"><input id="txtModelNo" name="txtModelNo" type="text" maxlength="20" class="commonInput" onblur="checkModelNo(this)" /></td>
+                    <td>
+                        <div id="divModelNo"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Model Name:</td>
+                    <td colspan="2"><input id="txtModelName" name="txtModelName" type="text" maxlength="50" class="commonInput" onblur="checkModelName(this)" /></td>
+                    <td>
+                        <div id="divModelName"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Description:</td>
+                    <td colspan="2"><input class="commonInput" size="40" id="txtDescription" name="txtDescription" onblur="checkDescription(this)" type="text" maxlength="250" /></td>
+                    <td>
+                        <div id="divDescription"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Manufacturer:</td>
+                    <td colspan="2">
+                        <select name="optManufacturer" id="optManufacturer" class="commonInput" onblur="checkManufacturer(this)">
+                            <option value="">Select Manufacturer</option>
+                            <option value="LG">LG</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Sony">Sony</option>
+                            <option value="Whirpool">Whirpool</option>
+                            <option value="Mi">Mi</option>
+                            <option value="Vu">Vu</option>
+                            <option value="Hitachi">Hitachi</option>
+                            <option value="Carrier">Carrier</option>
+                            <option value="Voltas">Voltas</option>
+                            <option value="Vivo">Vivo</option>
+                            <option value="Oppo">Oppo</option>
+                            <option value="Realme">Realme</option>
+                            <option value="OnePlus">OnePlus</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Nokia">Nokia</option>
+                            <option value="Panasonic">Panasonic</option>
+                            <option value="Sansui">Sansui</option>
+                            <option value="Thomson">Thomson</option>
+                            <option value="Motorola">Motorola</option>
+                            <option value="Bajaj">Bajaj</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divManufacturer"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Product Category:</td>
+                    <td colspan="2">
+                        <select name="optProdCategory" id="optProdCategory" class="commonInput" onblur="checkProdCategory(this)">
+                            <option value="">Select Product Category</option>
+                            <option value="PC000001">Electronics</option>
+                            <option value="PC000002">Laptops & Desktops</option>
+                            <option value="PC000003">Television</option>
+                            <option value="PC000004">Small Home Appliances</option>
+                            <option value="PC000005">Camera & Accessories</option>
+                            <option value="PC000006">Large Home Appliances</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divProdCategory"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Product Type:</td>
+                    <td>
+                        <div id="divProdType"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Price:</td>
+                    <td colspan="2">
+                        <input class="commonInput" type="number" name="txtprice" id="txtPrice" onblur="checkPrice(this)">
+                    </td>
+                    <td>
+                        <div id="divPrice"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" valign="center">
+                        <button type="button" class="buttons button1" onclick="checkAllInput()">Add</button>
+                        <button type="reset" class="buttons button1">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+    <table>
+        <div id="divShowProducts" style="margin: 25px;"></div>
+    </table>
+</body>
+</html>
+
+<script language = "JavaScript" type="text/javascript">
+    var count = 1;
+    var flagModelNo = false;
+    var flagModelName = false;
+    var flagDescription = false;
+    var flagManufacturer = false;
+    var flagProdCategory = false;
+    var flagProdType = false;
+    var flagPrice = false;
+
+    function checkModelNo(htmlObj) {
+        var modNo = htmlObj.value;
+        if (modNo == "") {
+            flagModelNo = false;
+            document.getElementById("divModelNo").innerHTML = "Please enter model number";
+            document.getElementById("txtModelNo").className = "error";
+        } else {
+            flagModelNo = true;
+            document.getElementById("divModelNo").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("txtModelNo").className = "commonInput";
+        }
+    }
+
+    function checkModelName(htmlObj) {
+        var modName = htmlObj.value;
+        if (modName == "") {
+            flagModelName = false;
+            document.getElementById("divModelName").innerHTML = "Please enter model name";
+            document.getElementById("txtModelName").className = "error";
+        } else {
+            flagModelName = true;
+            document.getElementById("divModelName").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("txtModelName").className = "commonInput";
+        }
+    }
+
+    function checkDescription(htmlObj) {
+        var des = htmlObj.value;
+        if (des == "") {
+            flagDescription = false;
+            document.getElementById("divDescription").innerHTML = "Please enter description";
+            document.getElementById("txtDescription").className = "error";
+        } else {
+            flagDescription = true;
+            document.getElementById("divDescription").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("txtDescription").className = "commonInput";
+        }
+    }
+
+    function checkManufacturer(htmlObj) {
+        var manf = htmlObj.value;
+        if (manf == "") {
+            flagManufacturer = false;
+            document.getElementById("divManufacturer").innerHTML = "Please select manufacturer";
+            document.getElementById("optManufacturer").className = "error";
+        } else {
+            flagManufacturer = true;
+            document.getElementById("divManufacturer").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("optManufacturer").className = "commonInput";
+        }
+    }
+
+    function checkProdCategory(htmlObj) {
+        var prodcat = htmlObj.value;
+        if (prodcat == "") {
+            flagProdCategory = false;
+            document.getElementById("divProdCategory").innerHTML = "Please select product category";
+            document.getElementById("optProdCategory").className = "error";
+        } else {
+            flagProdCategory = true;
+            document.getElementById("divProdCategory").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("optProdCategory").className = "commonInput";
+        }
+    }
+
+    function checkPrice(htmlObj) {
+        var price = htmlObj.value;
+        if (price == "") {
+            flagPrice = false;
+            document.getElementById("divPrice").innerHTML = "Please enter price";
+            document.getElementById("txtPrice").className = "error";
+        } else {
+            flagPrice = true;
+            document.getElementById("divPrice").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("txtPrice").className = "commonInput";
+        }
+    }
+</script>

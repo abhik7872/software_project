@@ -131,7 +131,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="center" valign="center">
-                        <button type="button" class="buttons" onclick="cheeckAllInput()">Add</button>
+                        <button type="button" class="buttons" onclick="checkAllInput()">Add</button>
                         <button type="reset" class="buttons">Cancel</button>
                     </td>
                 </tr>
@@ -159,6 +159,7 @@
             flagSubject = true;
             document.getElementById("divSubjectName").innerHTML = "<img src = tick.jpg>";
             document.getElementById("optSubjectName").className = "commonInput";
+            loadTopic();
         }
     }
 
