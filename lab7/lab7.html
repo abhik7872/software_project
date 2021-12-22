@@ -151,7 +151,7 @@
                 <tr>
                     <td class="commonLabel">Product Category:</td>
                     <td colspan="2">
-                        <select name="optProdCategory" id="optProdCategory" class="commonInput" onblur="checkProdCategory(this)">
+                        <select name="optProdCategory" id="optProdCategory" class="commonInput" onblur="checkProdCategory(this)" onchange="loadTopic(this)">
                             <option value="">Select Product Category</option>
                             <option value="PC000001">Electronics</option>
                             <option value="PC000002">Laptops & Desktops</option>
@@ -167,6 +167,9 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">Product Type:</td>
+                    <td>
+                        <div id="divProdT"></div>
+                    </td>
                     <td>
                         <div id="divProdType"></div>
                     </td>
@@ -188,10 +191,10 @@
                 </tr>
             </table>
         </form>
+        <table>
+            <div id="divShowProducts" style="margin: 25px;"></div>
+        </table>
     </center>
-    <table>
-        <div id="divShowProducts" style="margin: 25px;"></div>
-    </table>
 </body>
 </html>
 
@@ -280,6 +283,126 @@
             flagPrice = true;
             document.getElementById("divPrice").innerHTML = "<img src = tick.jpg>";
             document.getElementById("txtPrice").className = "commonInput";
+        }
+    }
+
+    function checkData(htmlObj) {
+        var data = htmlObj.value;
+        if (data = "") {
+            flagProdType = false;
+            document.getElementById("divProdType").innerHTML = "Please select product type";
+        } else {
+            flagProdType = true;
+            document.getElementById("divProdType").innerHTML = "<img src = tick.jpg>";
+        }
+    }
+
+    function loadTopic(htmlObj) {
+        var pcId = htmlObj.value;
+        if (pcId == "") {
+            flagProdCategory = false;
+            document.getElementById("divProdCategory").innerHTML = "Please select product category";
+        } else {
+            var XMLHTTP;
+            if (window.XMLHttpRequest) {
+                XMLHTTP = new XMLHttpRequest();
+            } else {
+                XMLHTTP= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            XMLHTTP.addEventListener("progress", function() {
+                document.getElementById("divProdT").innerHTML="<img src=loading.gif height=24px width=24px>";
+            }, false);
+            XMLHTTP.onreadystatechange = function() {
+                if(XMLHTTP.readyState == 4 && XMLHTTP.status == 200){
+                    document.getElementById("divMod").innerHTML = XMLHTTP.responseText;
+                }
+            }
+            var url = "";
+            if (pcId == "PC000001") {
+                url = "el.html";
+            }
+            if (pcId == "PC000002") {
+                url = "ld.html";
+            }
+            if (pcId == "PC000003") {
+                url = "tv.html";
+            }
+            if (pcId == "PC000004") {
+                url = "sha.html";
+            }
+            if (pcId == "PC000005") {
+                url = "ca.html";
+            }
+            if (pcId == "PC000001") {
+                url = "lha.html";
+            }
+            XMLHTTP.open("GET",url,true);
+            XMLHTTP.send();
+        }
+    }
+
+    var userRow = "";
+    function checkAllInput() {
+        if (document.getElementById("txtModelNo").value != "" && flagModelNo == true) {
+            if (document.getElementById("txtModelName").value != "" && flagModelName == true) {
+                if (document.getElementById("txtDescription").value != "" && flagDescription == true) {
+                    if (document.getElementById("optManufacturer").value != "" && flagManufacturer == true) {
+                        if (document.getElementById("optProdCategory").value != "" && flagProdCategory ==true) {
+                            if (document.getElementById("optProdType").value != "" && flagProdType == true) {
+                                if (document.getElementById("txtPrice").value != "" && flagPrice == true) {
+                                    var headerContent = "";
+                                    headerContent = "<table border=0><tr>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Model No.</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Model Name</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Description</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Manufacturer</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Product Category</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Product Type</td>";
+                                    headerContent += "<td align=center valign=center class=headerCell> Price</td>";
+                                    headerContent += "</tr>";
+                                    var mno = document.getElementById("txtModelNo").value;
+                                    var mname = document.getElementById("txtModelName").value;
+                                    var ds = document.getElementById("txtDescription").value;
+                                    var mn = document.getElementById("txtManufacturer").value;
+                                    var pc = document.getElementById("txtProdCategory").value;
+                                    var pt = document.getElementById("txtProdType").value;
+                                    var pr = document.getElementById("txtPrice").value;
+                                    userRow += "<tr>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + mno + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + mname + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + ds + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + mn + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + pc + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + pt + "</td>";
+                                    userRow += "<td align=center valign=center class=commonCell>" + pr + "</td>";
+                                    userRow += "</tr>";
+                                    var content = headerContent + userRow + "</table>";
+                                    document.getElementById("divShowCourses").innerHTML = content;
+                                    alert("Course succesfully added!");
+                                    document.getElementById("frmCourseAlloc").reset();
+                                    count++;
+                                } else {
+                                    alert("Please enter model number");
+                                }
+                            } else {
+                                alert("Please enter model name");
+                            }
+                        } else {
+                            alert("Please enter description");
+                        }
+                    } else {
+                        alert("Please select manufacturer");
+                    }
+                } else {
+                    alert("Please select product category");
+                }
+            } else {
+                alert("Please select product type");
+            }
+        } else {
+            alert("Please enter price");
         }
     }
 </script>

@@ -101,7 +101,7 @@
                 <tr>
                     <td class="commonLabel">SUBJECT:</td>
                     <td colspan="2">
-                        <select id="optSubjectName" name="optSubjectName" class="commonInput" onchange="checkSubject(this), loadTopic(this)">
+                        <select id="optSubjectName" name="optSubjectName" class="commonInput" onblur="checkSubject(this)" onchange="loadTopic(this)">
                             <option value="">Select Subject</option>
                             <option value="ESC501">Software Engineering</option>
                             <option value="PCC-CS501">Compiler Design</option>
@@ -114,12 +114,11 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">MODULE:</td>
-                    <td onblur="checkData(this)"></td>
-                    <td>
-                        <div id="divModule"></div>
-                    </td>
                     <td>
                         <div id = "divMod" class="error"></div>
+                    </td>
+                    <td>
+                        <div id="divModule"></div>
                     </td>
                 </tr>
                 <tr>
@@ -138,10 +137,10 @@
                 </tr>
             </table>
         </form>
+        <table>
+            <div id="divShowCourses" style="margin: 25px;"></div>
+        </table>
     </center>
-    <table>
-        <div id="divShowCourses"></div>
-    </table>
 </body>
 </html>
 
@@ -160,7 +159,6 @@
             flagSubject = true;
             document.getElementById("divSubjectName").innerHTML = "<img src = tick.jpg>";
             document.getElementById("optSubjectName").className = "commonInput";
-            loadTopic();
         }
     }
 
@@ -168,44 +166,44 @@
         var strModule = htmlObj.value;
         if (strModule == "") {
             flagModule = false;
-            document.getElementById("divMod").innerHTML = "Please select module";
+            document.getElementById("divModule").innerHTML = "Please select module";
         } else {
-            document.getElementById("divMod").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("divModule").innerHTML = "<img src = tick.jpg>";
             flagModule = true;
         }
     }
 
-    function loadTopic(htmlObj) {
-        var subCode = htmlObj.value;
-        if (subCode == "") {
+    function loadTopic(htmlobj){
+        var subcode=htmlobj.value;
+        if(subcode==""){
             flagSubject = false;
-            document.getElementById("divSubjectName").innerHTML = "Please select subject";
-        } else {
+            document.getElementById("divSubject").innerHTML = "Please select Subject.";
+        }else{
             var XMLHTTP;
-            if (window.XMLHttpRequest) {
-                XMLHTTP = new XMLHttpRequest();
-            } else {
-                XMLHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+            if(window.XMLHttpRequest){
+                XMLHTTP=new XMLHttpRequest();
+            }else{
+                XMLHTTP= new ActiveXObject("Microsoft.XMLHTTP");
             }
-            XMLHTTP.addEventListner("progress", function() {
-                document.getElementById("divModule").innerHTML = "<img src = loading.gif height = 24px width = 24px>"
-            }, false);
-            XMLHTTP.onreadystatechange = function() {
-                if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
-                    document.getElementById("divModule").innerHTML = XMLHTTP.responseText;
+            XMLHTTP.addEventListener("progress",function(){
+                document.getElementById("divMod").innerHTML="<img src=loading.gif height=24px width=24px>";
+            },false);
+            XMLHTTP.onreadystatechange=function(){
+                if(XMLHTTP.readyState==4 && XMLHTTP.status==200){
+                    document.getElementById("divMod").innerHTML=XMLHTTP.responseText;
                 }
             }
-            var url = "";
-            if (subCode == "ESC501") {
-                url = "se.html";
+            var url="";
+            if(subcode=="ESC501"){
+                url="se.html";
             }
-            if (subCode == "PCC-CS501") {
-                url = "cd.html";
+            if(subcode=="PCC-CS501"){
+                url="cd.html";
             }
-            if (subCode == "PCC-CS502") {
-                url = "os.html";
+            if(subcode=="PCC-CS502"){
+                url="os.html";
             }
-            XMLHTTP.open("GET", url, true);
+            XMLHTTP.open("GET",url,true);
             XMLHTTP.send();
         }
     }
