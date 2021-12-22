@@ -36,18 +36,18 @@
     .headerCell{
         font-family: calibri;
         font-size: large;
-        color: #8f3925;
+        color: black;
         border-radius: 5px;
-        border: 2px solid #934422;
+        border: 2px solid #7799CC;
         text-align: center;
-        background: #efbada;
+        background: #7799CC;
         padding: 5px;
     }
     .commonCell{
         font-family: calibri;
         font-size: medium;
         color: #122354;
-        border: 2px solid #934422;
+        border: 2px solid #CCCCDD;
         border-radius: 5px;
         text-align: center;
         padding: 10px;
@@ -314,7 +314,7 @@
             }, false);
             XMLHTTP.onreadystatechange = function() {
                 if(XMLHTTP.readyState == 4 && XMLHTTP.status == 200){
-                    document.getElementById("divMod").innerHTML = XMLHTTP.responseText;
+                    document.getElementById("divProdT").innerHTML = XMLHTTP.responseText;
                 }
             }
             var url = "";
@@ -333,7 +333,7 @@
             if (pcId == "PC000005") {
                 url = "ca.html";
             }
-            if (pcId == "PC000001") {
+            if (pcId == "PC000006") {
                 url = "lha.html";
             }
             XMLHTTP.open("GET",url,true);
@@ -364,9 +364,9 @@
                                     var mno = document.getElementById("txtModelNo").value;
                                     var mname = document.getElementById("txtModelName").value;
                                     var ds = document.getElementById("txtDescription").value;
-                                    var mn = document.getElementById("txtManufacturer").value;
-                                    var pc = document.getElementById("txtProdCategory").value;
-                                    var pt = document.getElementById("txtProdType").value;
+                                    var mn = document.getElementById("optManufacturer").value;
+                                    var pc = document.getElementById("optProdCategory").value;
+                                    var pt = document.getElementById("optProdType").value;
                                     var pr = document.getElementById("txtPrice").value;
                                     userRow += "<tr>";
                                     userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
@@ -379,9 +379,9 @@
                                     userRow += "<td align=center valign=center class=commonCell>" + pr + "</td>";
                                     userRow += "</tr>";
                                     var content = headerContent + userRow + "</table>";
-                                    document.getElementById("divShowCourses").innerHTML = content;
+                                    document.getElementById("divShowProducts").innerHTML = content;
                                     alert("Course succesfully added!");
-                                    document.getElementById("frmCourseAlloc").reset();
+                                    document.getElementById("frmProdReg").reset();
                                     count++;
                                 } else {
                                     alert("Please enter model number");

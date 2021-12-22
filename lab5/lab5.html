@@ -115,7 +115,7 @@
                 <tr>
                     <td class="commonLabel">MODULE:</td>
                     <td>
-                        <div id = "divMod" class="error"></div>
+                        <div id = "divMod"></div>
                     </td>
                     <td>
                         <div id="divModule"></div>
@@ -174,34 +174,34 @@
     }
 
     function loadTopic(htmlobj){
-        var subcode=htmlobj.value;
-        if(subcode==""){
+        var subcode = htmlobj.value;
+        if(subcode == ""){
             flagSubject = false;
             document.getElementById("divSubject").innerHTML = "Please select Subject.";
         }else{
             var XMLHTTP;
             if(window.XMLHttpRequest){
-                XMLHTTP=new XMLHttpRequest();
+                XMLHTTP = new XMLHttpRequest();
             }else{
-                XMLHTTP= new ActiveXObject("Microsoft.XMLHTTP");
+                XMLHTTP = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            XMLHTTP.addEventListener("progress",function(){
+            XMLHTTP.addEventListener("progress", function() {
                 document.getElementById("divMod").innerHTML="<img src=loading.gif height=24px width=24px>";
-            },false);
-            XMLHTTP.onreadystatechange=function(){
-                if(XMLHTTP.readyState==4 && XMLHTTP.status==200){
-                    document.getElementById("divMod").innerHTML=XMLHTTP.responseText;
+            }, false);
+            XMLHTTP.onreadystatechange = function() {
+                if(XMLHTTP.readyState == 4 && XMLHTTP.status == 200){
+                    document.getElementById("divMod").innerHTML = XMLHTTP.responseText;
                 }
             }
-            var url="";
-            if(subcode=="ESC501"){
-                url="se.html";
+            var url = "";
+            if(subcode == "ESC501"){
+                url = "se.html";
             }
-            if(subcode=="PCC-CS501"){
-                url="cd.html";
+            if(subcode == "PCC-CS501"){
+                url = "cd.html";
             }
-            if(subcode=="PCC-CS502"){
-                url="os.html";
+            if(subcode == "PCC-CS502"){
+                url = "os.html";
             }
             XMLHTTP.open("GET",url,true);
             XMLHTTP.send();
