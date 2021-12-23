@@ -183,8 +183,8 @@
           </table>
         </form>
         <table>
-        <div id="divShowProjects" style="margin:25px;"></div>
-      </table>
+          <div id="divShowProjects" style="margin:25px;"></div>
+        </table>
       </center>
 </body>
 
@@ -212,7 +212,7 @@
             var valid = /^[a-zA-Z ]+$/;
             if (!strtname.match(valid)) {
                 document.getElementById("divProjectName").innerHTML = "Invalid project name. Only alphabets and space allowed.";
-                document.getElementById("txtProjectName").className = "error-text";
+                document.getElementById("txtProjectName").className = "error";
                 flagName = false;
             } else {
                 flagName = true;
@@ -262,7 +262,6 @@
         var strStDate = document.getElementById("startDate").value;
         var stdate = new Date(strStDate).setHours(0, 0, 0, 0);
         var today = new Date().setHours(0, 0, 0, 0);
-        console.log(strStDate);
         if (strStDate == "") {
             flagStartDate = false;
             document.getElementById("divStartDate").innerHTML = "Please enter date";
@@ -328,7 +327,6 @@
         var maxDate1 = new Date(document.getElementById("endDate").value);
         maxDate1.setHours(0,0,0,0);
         endDate1.setHours(0,0,0,0);
-        console.log(maxDate1+ " " + endDate1+ " " + minDate1);
         if (strEndDate1 == "") {
             flagLeadEndDate = false;
             document.getElementById("divLeadEndDate").innerHTML = "Please enter date";
@@ -336,7 +334,7 @@
             flagLeadEndDate = false;
             if (!(minDate1 <= endDate1 && endDate1 <= maxDate1)) {
                 document.getElementById("divLeadEndDate").innerHTML = "Invalid Date";
-                document.getElementById("leadEndDate").className = "error-text";
+                document.getElementById("leadEndDate").className = "error";
                 flagLeadEndDate = false;
             } else {
                 flagLeadEndDate = true;
@@ -418,20 +416,21 @@
                         var projectName = document.getElementById("txtProjectName").value;
                         var techDomain = document.getElementById("txtTechDomain").value;
                         var description = document.getElementById("txtDescription").value;
+                        var clnt = document.getElementById("txtClient").value;
                         var startDate = document.getElementById("startDate").value;
-                        var endDate = document.getElementById("endDate").value;
+                        var enDate = document.getElementById("endDate").value;
                         var projLead = document.getElementById("txtProjLead").value;
                         var leadStartDate = document.getElementById("leadStartDate").value;
                         var leadEndDate = document.getElementById("leadEndDate").value;
-                        console.log(leadEndDate);
                         userRow += "<tr>";
                         userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + pid + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + projectName + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + techDomain + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + description + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + clnt + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + startDate + "</td>";
-                        userRow += "<td align=center valign=center class=commonCell>" + endDate + "</td>";
+                        userRow += "<td align=center valign=center class=commonCell>" + enDate + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + projLead + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + leadStartDate + "</td>";
                         userRow += "<td align=center valign=center class=commonCell>" + leadEndDate + "</td>";
