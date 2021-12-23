@@ -139,7 +139,7 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">IRDA Code:</td>
-                    <td colspan="2"><input id="txtIRDACode" name="txtIRDACode" type="text" maxlength="13" class="commonInput" placeholder="E.G. 91-4523-XDS-9" onblur="checkIRDA(this)" /></td>
+                    <td colspan="2"><input id="txtIRDACode" name="txtIRDACode" type="text" maxlength="13" class="commonInput" placeholder="E.G. 91-4523-XDS-9" onblur="checkIRDA(this), putHyphen(this.value, this, event)" onkeypress="putHyphen(this.value, this, event)" /></td>
                     <td>
                         <div id="divIRDACode"></div>
                     </td>
@@ -181,10 +181,10 @@
                 </tr>
             </table>
         </form>
+        <table>
+            <div id="divShowSchemes" style="margin: 25px;"></div>
+        </table>
     </center>
-    <table>
-        <div id="divShowSchemes" style="margin: 25px;"></div>
-    </table>
 </body>
 </html>
 
@@ -267,6 +267,15 @@
         }
     }
 
+    function putHyphen(input, textbox, e) {
+        if (input.length == 2 || input.length == 7 || input.length == 11) {
+            if(e.keyCode != 8){
+                input = input + '-';
+            }
+            textbox.value = input;
+        }
+    }
+
     function checkIRDA(htmlobj) {
         var irda = htmlobj.value;
         if (irda == "") {
@@ -274,7 +283,7 @@
             document.getElementById("divIRDACode").innerHTML = "Please Enter IRDA Code";
         } else {
             flagIRDA = false;
-            var valid = /^[0-9A-Z ]+$/;
+            var valid = /(\b[A-Z0-9][A-Z0-9]+|\b[A-Z]\b)/g;
             if (!irda.match(valid)) {
                 document.getElementById("divIRDACode").innerHTML = "Only Capital letters are allowed";
                 document.getElementById("txtIRDACode").className = "error";
@@ -285,8 +294,6 @@
                 document.getElementById("txtIRDACode").className = "commonInput";
             }
         }
-        irda.replace(/(\d{2})(\d{4})(\d{3})/, "$1-$2-$3");
-        console.log(irda);
     }
 
     function checkInv(htmlobj) {
