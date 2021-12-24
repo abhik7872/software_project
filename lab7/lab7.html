@@ -53,7 +53,9 @@
         padding: 10px;
     }
     .error{
-        background-color: #EEDDDD;
+        font-family: calibri;
+        font-size: medium;
+        color: #FF2354;
     }
     .box{
         box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
@@ -98,28 +100,28 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">Model No:</td>
-                    <td colspan="2"><input id="txtModelNo" name="txtModelNo" type="text" maxlength="20" class="commonInput" onblur="checkModelNo(this)" /></td>
+                    <td><input id="txtModelNo" name="txtModelNo" type="text" maxlength="20" class="commonInput" onblur="checkModelNo(this)" /></td>
                     <td>
                         <div id="divModelNo"></div>
                     </td>
                 </tr>
                 <tr>
                     <td class="commonLabel">Model Name:</td>
-                    <td colspan="2"><input id="txtModelName" name="txtModelName" type="text" maxlength="50" class="commonInput" onblur="checkModelName(this)" /></td>
+                    <td><input id="txtModelName" name="txtModelName" type="text" maxlength="50" class="commonInput" onblur="checkModelName(this)" /></td>
                     <td>
                         <div id="divModelName"></div>
                     </td>
                 </tr>
                 <tr>
                     <td class="commonLabel">Description:</td>
-                    <td colspan="2"><input class="commonInput" size="40" id="txtDescription" name="txtDescription" onblur="checkDescription(this)" type="text" maxlength="250" /></td>
+                    <td><input class="commonInput" size="40" id="txtDescription" name="txtDescription" onblur="checkDescription(this)" type="text" maxlength="250" /></td>
                     <td>
                         <div id="divDescription"></div>
                     </td>
                 </tr>
                 <tr>
                     <td class="commonLabel">Manufacturer:</td>
-                    <td colspan="2">
+                    <td>
                         <select name="optManufacturer" id="optManufacturer" class="commonInput" onblur="checkManufacturer(this)">
                             <option value="">Select Manufacturer</option>
                             <option value="LG">LG</option>
@@ -150,7 +152,7 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">Product Category:</td>
-                    <td colspan="2">
+                    <td>
                         <select name="optProdCategory" id="optProdCategory" class="commonInput" onblur="checkProdCategory(this)" onchange="loadTopic(this)">
                             <option value="">Select Product Category</option>
                             <option value="PC000001">Electronics</option>
@@ -176,11 +178,26 @@
                 </tr>
                 <tr>
                     <td class="commonLabel">Price:</td>
-                    <td colspan="2">
+                    <td>
                         <input class="commonInput" type="number" name="txtprice" id="txtPrice" onblur="checkPrice(this)">
                     </td>
                     <td>
                         <div id="divPrice"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Color:</td>
+                    <td>
+                        <select name="optProdColor" id="optProdColor" class="commonInput" onblur="checkProdColor(this)">
+                            <option value="">Select Color</option>
+                            <option value="White">White</option>
+                            <option value="Black">Black</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Blue">Blue</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divProdColor"></div>
                     </td>
                 </tr>
                 <tr>
@@ -207,6 +224,7 @@
     var flagProdCategory = false;
     var flagProdType = false;
     var flagPrice = false;
+    var flagProdColor = false;
 
     function checkModelNo(htmlObj) {
         var modNo = htmlObj.value;
@@ -215,9 +233,17 @@
             document.getElementById("divModelNo").innerHTML = "Please enter model number";
             document.getElementById("txtModelNo").className = "error";
         } else {
-            flagModelNo = true;
-            document.getElementById("divModelNo").innerHTML = "<img src = tick.jpg>";
-            document.getElementById("txtModelNo").className = "commonInput";
+            flagModelNo = false;
+            var valid = /(\b[A-Z0-9][A-Z0-9]+|\b[A-Z]\b)/g;
+            if (!modNo.match(valid)) {
+                document.getElementById("divModelNo").innerHTML = "Only Capital letters are allowed";
+                document.getElementById("txtModelNo").className = "error";
+                flagModelNo = false;
+            } else {
+                flagModelNo = true;
+                document.getElementById("divModelNo").innerHTML = "<img src=tick.jpg>";
+                document.getElementById("txtModelNo").className = "commonInput";
+            }
         }
     }
 
@@ -270,6 +296,19 @@
             flagProdCategory = true;
             document.getElementById("divProdCategory").innerHTML = "<img src = tick.jpg>";
             document.getElementById("optProdCategory").className = "commonInput";
+        }
+    }
+
+    function checkProdColor(htmlObj) {
+        var prodcolor = htmlObj.value;
+        if (prodcolor == "") {
+            flagProdColor = false;
+            document.getElementById("divProdColor").innerHTML = "Please select product category";
+            document.getElementById("optProdColor").className = "error";
+        } else {
+            flagProdColor = true;
+            document.getElementById("divProdColor").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("optProdColor").className = "commonInput";
         }
     }
 
@@ -350,39 +389,46 @@
                         if (document.getElementById("optProdCategory").value != "" && flagProdCategory ==true) {
                             if (document.getElementById("optProdType").value != "" && flagProdType == true) {
                                 if (document.getElementById("txtPrice").value != "" && flagPrice == true) {
-                                    var headerContent = "";
-                                    headerContent = "<table border=0><tr>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Model No.</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Model Name</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Description</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Manufacturer</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Product Category</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Product Type</td>";
-                                    headerContent += "<td align=center valign=center class=headerCell> Price</td>";
-                                    headerContent += "</tr>";
-                                    var mno = document.getElementById("txtModelNo").value;
-                                    var mname = document.getElementById("txtModelName").value;
-                                    var ds = document.getElementById("txtDescription").value;
-                                    var mn = document.getElementById("optManufacturer").value;
-                                    var pc = document.getElementById("optProdCategory").value;
-                                    var pt = document.getElementById("optProdType").value;
-                                    var pr = document.getElementById("txtPrice").value;
-                                    userRow += "<tr>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + mno + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + mname + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + ds + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + mn + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + pc + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + pt + "</td>";
-                                    userRow += "<td align=center valign=center class=commonCell>" + pr + "</td>";
-                                    userRow += "</tr>";
-                                    var content = headerContent + userRow + "</table>";
-                                    document.getElementById("divShowProducts").innerHTML = content;
-                                    alert("Course succesfully added!");
-                                    document.getElementById("frmProdReg").reset();
-                                    count++;
+                                    if (document.getElementById("optProdColor").value != "" && flagProdColor == true) {
+                                        var headerContent = "";
+                                        headerContent = "<table border=0><tr>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Sl.No.</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Model No.</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Model Name</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Description</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Manufacturer</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Product Category</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Product Type</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Price</td>";
+                                        headerContent += "<td align=center valign=center class=headerCell> Color</td>";
+                                        headerContent += "</tr>";
+                                        var mno = document.getElementById("txtModelNo").value;
+                                        var mname = document.getElementById("txtModelName").value;
+                                        var ds = document.getElementById("txtDescription").value;
+                                        var mn = document.getElementById("optManufacturer").value;
+                                        var pc = document.getElementById("optProdCategory").options[document.getElementById("optProdCategory").selectedIndex].text;
+                                        var pt = document.getElementById("optProdType").options[document.getElementById("optProdType").selectedIndex].text;
+                                        var pr = document.getElementById("txtPrice").value;
+                                        var cl = document.getElementById("optProdColor").value;
+                                        userRow += "<tr>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + mno + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + mname + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + ds + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + mn + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + pc + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + pt + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + pr + "</td>";
+                                        userRow += "<td align=center valign=center class=commonCell>" + cl + "</td>";
+                                        userRow += "</tr>";
+                                        var content = headerContent + userRow + "</table>";
+                                        document.getElementById("divShowProducts").innerHTML = content;
+                                        alert("Course succesfully added!");
+                                        document.getElementById("frmProdReg").reset();
+                                        count++;
+                                    } else {
+                                        alert("Please select product color");
+                                    }
                                 } else {
                                     alert("Please enter model number");
                                 }
