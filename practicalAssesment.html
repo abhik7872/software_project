@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Allocation Form</title>
+</head>
+<style type="text/css">
+    .commonHeader{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        margin: 5px;
+        color: black;
+    }
+    .commonLabel{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: medium;
+        font-weight: bold;
+        text-align: right;
+        margin: 5px;
+        padding: 5px;
+        color: black;
+    }
+    .commonInput{
+        font-family: calibri;
+        font-size: medium;
+        border-radius: 5px;
+        border: 2px solid lightblue;
+        text-align: left;
+        margin: 5px;
+        padding: 8px;
+    }
+    .headerCell{
+        font-family: calibri;
+        font-size: large;
+        color: black;
+        border-radius: 5px;
+        border: 2px solid #7799CC;
+        text-align: center;
+        background: #7799CC;
+        padding: 5px;
+    }
+    .commonCell{
+        font-family: calibri;
+        font-size: medium;
+        color: #122354;
+        border: 2px solid #CCCCDD;
+        border-radius: 5px;
+        text-align: center;
+        padding: 10px;
+    }
+    .error{
+        font-family: calibri;
+        font-size: medium;
+        color: #FF2354;
+    }
+    .box{
+        box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        margin: 20px, 20px;
+        padding: 34px;
+        justify-content: center;
+    }
+    .buttons{
+        font-family: calibri;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 8px 12px 8px 12px;
+        margin-left: 10px;
+        margin-top: 10px;
+        box-shadow: 3px 3px 10px 2px #CECEDE;
+        border: none;
+    }
+    .buttons:hover{
+        border-radius: 5px;
+        padding: 10px 14px 10px 14px;
+        background: linear-gradient(180deg, #667799, #7799CC);
+        box-shadow: 3px 3px 10px 2px #CCCCDD;
+        border: 1px solid royalblue;
+        cursor: pointer;
+    }
+    .button:focus{
+        background: linear-gradient(180deg, #DCDCEE, #FEFEFF);
+        color: royalblue;
+    }
+</style>
+<body onload="getId()">
+    <center>
+        <form id="frmTeacherReg" name="frmTeacherReg">
+            <table class="box">
+                <tr>
+                    <td colspan="3" class="commonHeader">
+                      <h3>
+                        Course Allocation Form
+                      </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Teacher ID:</td>
+                    <td colspan="2"><input readonly id="txtTeacherID" name="txtTeacherID" type="text" maxlength="6" class="commonInput" /></td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Teacher Name</td>
+                    <td colspan="2"><input type="text" id="txtTeacherName" name="txtTeacherName" class="commonInput" onblur="checkTeacherName(this)"></td>
+                    <td>
+                        <div id="divTeacherName"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Subject:</td>
+                    <td colspan="2">
+                        <select id="optSubjectName" name="optSubjectName" class="commonInput" onblur="checkSubject(this)">
+                            <option value="">Select Subject</option>
+                            <option value="ESC501">Software Engineering</option>
+                            <option value="PCC-CS501">Compiler Design</option>
+                            <option value="PCC-CS502">Operating System</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div id="divSubjectName"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Topic Name:</td>
+                    <td><input class="commonInput" id="txtTopicName" name="txtTopicName" onblur="checkTopicName(this)" type="text" size="30" maxlength="50" placeholder="" /></td>
+                    <td>
+                        <div id="divTopicName"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="commonLabel">Lecture Hour:</td>
+                    <td><input type="number" class="commonInput" id="txtLecHour" name="txtLecHour" onblur="checkLecHour(this)"></td>
+                    <td>
+                        <div id="divLecHour"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" valign="center">
+                        <button type="button" class="buttons" onclick="checkAllInput()">Add</button>
+                        <button type="reset" class="buttons" onblur="getId()">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table>
+            <div id="divShowTeachers" style="margin: 25px;"></div>
+        </table>
+    </center>
+</body>
+</html>
+
+<script language = "JavaScript" type="text/javascript">
+    var count = 1;
+    var flagTeacherName = false;
+    var flagSubject = false;
+    var flagTopicName = false;
+    var flagLecHour = false;
+
+    function getId() {
+        var tid = "TCH" + count;
+        var numzeroes = 6 - tid.length;
+        tid = "TCH";
+        for (var i = 0; i < numzeroes; i++) {
+            tid += "0";
+        }
+        tid += count;
+        document.getElementById("txtTeacherID").value = tid;
+        document.getElementById("divTeacherName").innerHTML = "";
+        document.getElementById("txtTeacherName").className = "commonInput";
+    }
+
+    function checkTeacherName(htmlObj) {
+        var strTchName = htmlObj.value;
+        if (strTchName == "") {
+            flagTeacherName = false;
+            document.getElementById("divTeacherName").innerHTML = "Please enter teacher name";
+        } else {
+            flagTeacherName = false;
+            if (strTchName != strTchName.toUpperCase()) {
+                flagTeacherName = false;
+                document.getElementById("divTeacherName").innerHTML = "Only capital letters are allowed";
+                document.getElementById("txtTeacherName").className = "error";
+            } else {
+                flagTeacherName = true;
+                document.getElementById("divTeacherName").innerHTML = "<img src = tick.jpg>";
+                document.getElementById("txtTeacherName").className = "commonInput";
+            }
+        }
+    }
+
+    function checkSubject(htmlObj) {
+        var strSub = htmlObj.value;
+        if (strSub == "") {
+            flagSubject = false;
+            document.getElementById("divSubjectName").innerHTML = "Please select subject";
+        } else {
+            flagSubject = true;
+            document.getElementById("divSubjectName").innerHTML = "<img src = tick.jpg>";
+            document.getElementById("optSubjectName").className = "commonInput";
+        }
+    }
+
+    function checkTopicName(htmlObj) {
+        var strTopicName = htmlObj.value;
+        if (strTopicName == "") {
+            flagTopicName = false;
+            document.getElementById("divTopicName").innerHTML = "Please enter topic name";
+        } else {
+            flagTopicName = false;
+            if (strTopicName != strTopicName.toUpperCase()) {
+                document.getElementById("divTopicName").innerHTML = "Only capital letters allowd"
+                flagTopicName = false;
+            } else {
+                document.getElementById("divTopicName").innerHTML = "<img src = tick.jpg>"
+                flagTopicName = true;
+            }
+        }
+    }
+
+    function checkLecHour(htmlObj) {
+        var strLecHour = htmlObj.value;
+        if (strLecHour == "") {
+            flagLecHour == false;
+            document.getElementById("divLecHour").innerHTML = "Please enter lecture hour";
+        } else {
+            flagLecHour = true;
+            document.getElementById("divLecHour").innerHTML = "<img src = tick.jpg>";
+        } 
+    }
+
+    var userRow = "";
+    function checkAllInput() {
+        if (document.getElementById("txtTeacherID").value != "") {
+            if (document.getElementById("txtTeacherName").value != "" && flagTeacherName == true) {
+                if (document.getElementById("optSubjectName").value != "" && flagSubject == true) {
+                    if (document.getElementById("txtTopicName").value != "" && flagTopicName == true) {
+                        if (document.getElementById("txtLecHour").value != "" && flagLecHour == true) {
+                            var headerContent = "";
+                            headerContent = "<table border=0><tr>";
+                            headerContent+="<td align=center valign=center class=headerCell> Sl.No.</td>";
+                            headerContent+="<td align=center valign=center class=headerCell> Teacher ID</td>";
+                            headerContent+="<td align=center valign=center class=headerCell> Teacher Name</td>";
+                            headerContent+="<td align=center valign=center class=headerCell> Subject</td>";
+                            headerContent+="<td align=center valign=center class=headerCell> Topic Name</td>";
+                            headerContent+="<td align=center valign=center class=headerCell> Lecture Hour</td>";
+                            headerContent+="</tr>";
+
+                            var tid = document.getElementById("txtTeacherID").value;
+                            var tname = document.getElementById("txtTeacherName").value;
+                            var sub = document.getElementById("optSubjectName").value;
+                            var topname = document.getElementById("txtTopicName").value;
+                            var lec = document.getElementById("txtLecHour").value;
+
+                            userRow += "<tr>";
+                            userRow += "<td align=center valign=center class=commonCell>" + count + "</td>";
+                            userRow += "<td align=center valign=center class=commonCell>" + tid + "</td>";
+                            userRow += "<td align=center valign=center class=commonCell>" + tname + "</td>";
+                            userRow += "<td align=center valign=center class=commonCell>" + sub + "</td>";
+                            userRow += "<td align=center valign=center class=commonCell>" + topname + "</td>";
+                            userRow += "<td align=center valign=center class=commonCell>" + lec + "</td>";
+                            userRow += "</tr>";
+
+                            var content = headerContent + userRow + "</table>";
+                            document.getElementById("divShowTeachers").innerHTML = content;
+                            alert("Teacher succesfully added!");
+                            document.getElementById("frmTeacherReg").reset();
+                            count++;
+                            getId();
+                        } else {
+                            alert("Enter lecture hour!");
+                        }
+                    } else {
+                        alert("Enter topic name!");
+                    }
+                } else {
+                    alert("Enter subject!");
+                }
+            } else {
+                alert("Enter teacher name!");
+            }
+        } else {
+            alert("Enter teacher id!");
+        }
+    }
+</script>
